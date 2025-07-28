@@ -1,0 +1,16 @@
+# templates/results/view.html
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Result Details</h2>
+  <ul class="list-group">
+    <li class="list-group-item">Student ID: {{ result.StudentID }}</li>
+    <li class="list-group-item">Subject: {{ result.Subject }}</li>
+    <li class="list-group-item">Score: {{ result.Score }}</li>
+    <li class="list-group-item">Grade: {{ result.Grade }}</li>
+    <li class="list-group-item">Term: {{ result.Term }}</li>
+    <li class="list-group-item">Year: {{ result.AcademicYear }}</li>
+    <li class="list-group-item">Remarks: {{ result.Remarks }}</li>
+  </ul>
+</div>
+{% endblock %}

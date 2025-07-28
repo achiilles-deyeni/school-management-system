@@ -1,0 +1,25 @@
+{# templates/teachers/form_fields.html #}
+<div class="mb-2">
+  <label>First Name</label>
+  <input type="text" name="first_name" value="{{ teacher.FirstName if teacher else '' }}" class="border rounded p-2 w-full">
+</div>
+<div class="mb-2">
+  <label>Last Name</label>
+  <input type="text" name="last_name" value="{{ teacher.LastName if teacher else '' }}" class="border rounded p-2 w-full">
+</div>
+<div class="mb-2">
+  <label>Subjects Taught</label>
+  <input type="text" name="subjects_taught" value="{{ teacher.Subjects_taught if teacher else '' }}" class="border rounded p-2 w-full">
+</div>
+<div class="mb-2">
+  <label>Email</label>
+  <input type="email" name="email" value="{{ teacher.Email if teacher else '' }}" class="border rounded p-2 w-full">
+</div>
+<div class="mb-2">
+  <label>Phone Number</label>
+  <input type="text" name="phone" value="{{ teacher.PhoneNumber if teacher else '' }}" class="border rounded p-2 w-full">
+</div>
+<div class="mb-2">
+  <label>Upload Photo</label>
+  <input type="file" name="photo" class="border rounded p-2 w-full">
+</div>

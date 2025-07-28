@@ -1,0 +1,37 @@
+<!-- templates/events/list.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">All Events</h2>
+
+  <form method="GET" class="row g-2 mb-3">
+    <div class="col-md-4">
+      <input type="text" name="title" class="form-control" placeholder="Search by title" value="{{ request.args.get('title', '') }}">
+    </div>
+    <div class="col-md-3">
+      <input type="date" name="date" class="form-control" value="{{ request.args.get('date', '') }}">
+    </div>
+    <div class="col-md-3">
+      <input type="text" name="location" class="form-control" placeholder="Location" value="{{ request.args.get('location', '') }}">
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+  </form>
+
+  <div class="row">
+    {% for event in events %}
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <img src="{{ url_for('static', filename='uploads/events/' ~ event.Photo) }}" class="card-img-top" onerror="this.style.display='none'">
+        <div class="card-body">
+          <h5 class="card-title">{{ event.Title }}</h5>
+          <p class="card-text">{{ event.EventDate }} @ {{ event.Location }}</p>
+          <a href="{{ url_for('events.view_event', event_id=event.EventID) }}" class="btn btn-outline-primary">View</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

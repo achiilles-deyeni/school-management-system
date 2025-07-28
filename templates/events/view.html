@@ -1,0 +1,19 @@
+<!-- templates/events/view.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card">
+    <img src="{{ url_for('static', filename='uploads/events/' ~ event.Photo) }}" class="card-img-top" onerror="this.style.display='none'">
+    <div class="card-body">
+      <h2 class="card-title">{{ event.Title }}</h2>
+      <p class="text-muted">{{ event.EventDate }} | {{ event.Location }}</p>
+      <p>{{ event.Description }}</p>
+
+      <a href="{{ url_for('events.edit_event', event_id=event.EventID) }}" class="btn btn-warning">Edit</a>
+      <form action="{{ url_for('events.delete_event', event_id=event.EventID) }}" method="POST" class="d-inline">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+<!-- templates/register.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Register Admin</h2>
+  <form method="POST">
+    <div class="mb-3">
+      <label for="FirstName" class="form-label">First Name</label>
+      <input type="text" class="form-control" name="FirstName" required>
+    </div>
+    <div class="mb-3">
+      <label for="LastName" class="form-label">Last Name</label>
+      <input type="text" class="form-control" name="LastName" required>
+    </div>
+    <div class="mb-3">
+      <label for="Email" class="form-label">Email</label>
+      <input type="email" class="form-control" name="Email" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" required minlength="8">
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+</div>
+{% endblock %}

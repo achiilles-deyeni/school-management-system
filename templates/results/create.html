@@ -1,0 +1,42 @@
+# templates/results/create.html
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Create New Result</h2>
+  <form method="post">
+    <div class="form-group">
+      <label>Student</label>
+      <select name="StudentID" class="form-control">
+        {% for student in students %}
+        <option value="{{ student.StudentID }}">{{ student.FirstName }} {{ student.LastName }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Academic Year</label>
+      <input type="text" name="AcademicYear" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label>Term</label>
+      <input type="text" name="Term" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label>Subject</label>
+      <input type="text" name="Subject" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label>Score</label>
+      <input type="number" name="Score" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label>Grade</label>
+      <input type="text" name="Grade" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label>Remarks</label>
+      <textarea name="Remarks" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+  </form>
+</div>
+{% endblock %}

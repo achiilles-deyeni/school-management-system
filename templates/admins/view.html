@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Admin Profile</h3>
+  <div class="card">
+    <div class="card-body">
+      <p><strong>ID:</strong> {{ admin.AdminID }}</p>
+      <p><strong>Name:</strong> {{ admin.FirstName }} {{ admin.LastName }}</p>
+      <p><strong>Email:</strong> {{ admin.Email }}</p>
+      <a href="{{ url_for('admins.edit_admin', admin_id=admin.AdminID) }}" class="btn btn-warning">Edit</a>
+      <a href="{{ url_for('admins.list_admins') }}" class="btn btn-secondary">Back</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

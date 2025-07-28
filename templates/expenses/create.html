@@ -1,0 +1,31 @@
+# templates/expenses/create.html
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Create Expense</h2>
+    <form method="POST" class="mt-3">
+        <div class="mb-3">
+            <label for="Title" class="form-label">Title</label>
+            <input type="text" class="form-control" name="Title" required>
+        </div>
+        <div class="mb-3">
+            <label for="Amount" class="form-label">Amount</label>
+            <input type="number" class="form-control" name="Amount" step="0.01" required>
+        </div>
+        <div class="mb-3">
+            <label for="ExpenseDate" class="form-label">Date</label>
+            <input type="date" class="form-control" name="ExpenseDate" required>
+        </div>
+        <div class="mb-3">
+            <label for="Category" class="form-label">Category</label>
+            <input type="text" class="form-control" name="Category">
+        </div>
+        <div class="mb-3">
+            <label for="Notes" class="form-label">Notes</label>
+            <textarea class="form-control" name="Notes"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{{ url_for('expenses.list_expenses') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

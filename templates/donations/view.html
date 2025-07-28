@@ -1,0 +1,26 @@
+<!-- templates/donations/view.html -->
+{% extends "base.html" %}
+
+{% block title %}Donation Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="my-4">Donation Details</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Donor:</strong> {{ donation.DonorName }}</li>
+                <li class="list-group-item"><strong>Amount:</strong> ${{ donation.Amount }}</li>
+                <li class="list-group-item"><strong>Date:</strong> {{ donation.DonationDate }}</li>
+                <li class="list-group-item"><strong>Notes:</strong> {{ donation.Notes }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a class="btn btn-secondary" href="{{ url_for('donations.list_donations') }}">Back to List</a>
+        <a class="btn btn-primary" href="{{ url_for('donations.edit_donation', donation_id=donation.DonationID) }}">Edit Donation</a>
+    </div>
+</div>
+{% endblock %}

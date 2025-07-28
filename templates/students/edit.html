@@ -1,0 +1,629 @@
+{% extends "base.html" %}
+
+{% block title %}Edit {{ student.first_name }} {{ student.last_name }} - School Management System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .edit-header {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .edit-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+    }
+    
+    .student-avatar-edit {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid rgba(255,255,255,0.3);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    
+    .form-section {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        border: 1px solid #e3e6f0;
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+    
+    .section-header {
+        background: #f8f9fc;
+        border-bottom: 1px solid #e3e6f0;
+        padding: 20px 25px;
+        font-weight: 600;
+        color: #5a5c69;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .section-header i {
+        margin-right: 10px;
+        color: #4e73df;
+    }
+    
+    .section-body {
+        padding: 25px;
+    }
+    
+    .form-group label {
+        font-weight: 600;
+        color: #5a5c69;
+        margin-bottom: 8px;
+    }
+    
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #d1d3e2;
+        padding: 12px 15px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: #4e73df;
+        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+        transform: translateY(-1px);
+    }
+    
+    .photo-section {
+        text-align: center;
+        padding: 20px;
+        border: 2px dashed #d1d3e2;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .photo-section:hover {
+        border-color: #4e73df;
+        background-color: #f8f9fc;
+    }
+    
+    .current-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #e3e6f0;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .current-photo:hover {
+        transform: scale(1.05);
+        border-color: #4e73df;
+    }
+    
+    .required-field::after {
+        content: '*';
+        color: #e74a3b;
+        margin-left: 3px;
+    }
+    
+    .field-help {
+        font-size: 12px;
+        color: #858796;
+        margin-top: 5px;
+    }
+    
+    .status-toggle {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        background: #f8f9fc;
+        border-radius: 8px;
+        border: 1px solid #e3e6f0;
+    }
+    
+    .status-toggle .form-check {
+        margin-bottom: 0;
+    }
+    
+    .form-actions {
+        background: #f8f9fc;
+        border-top: 1px solid #e3e6f0;
+        padding: 25px;
+        border-radius: 0 0 15px 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .btn-action {
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        min-width: 120px;
+    }
+    
+    .form-errors {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .form-errors ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+    
+    .form-errors li {
+        color: #721c24;
+        margin-bottom: 5px;
+    }
+    
+    .collapse-toggle {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    
+    .collapse-toggle[aria-expanded="false"] {
+        transform: rotate(-90deg);
+    }
+    
+    .audit-info {
+        background: #e3f2fd;
+        border: 1px solid #bbdefb;
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 15px;
+    }
+    
+    .audit-info small {
+        color: #1565c0;
+    }
+    
+    @media (max-width: 768px) {
+        .edit-header {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .form-actions {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .btn-action {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Edit Header -->
+    <div class="edit-header">
+        <div class="row align-items-center">
+            <div class="col-md-2 text-center text-md-left">
+                <img src="{{ url_for('students.student_photo', student_id=student.id) }}" 
+                     alt="{{ student.first_name }}" class="student-avatar-edit"
+                     onerror="this.src='{{ url_for('static', filename='images/default_avatar.png') }}'">
+            </div>
+            <div class="col-md-8">
+                <h2 class="mb-1">
+                    <i class="fas fa-user-edit mr-2"></i>Edit Student
+                </h2>
+                <p class="mb-2 opacity-75">
+                    {{ student.first_name }} {{ student.last_name }} ({{ student.student_id }})
+                </p>
+                <span class="badge badge-{{ 'success' if student.status == 'active' else 'secondary' }} badge-lg">
+                    <i class="fas fa-circle mr-1"></i>{{ student.status.title() }}
+                </span>
+            </div>
+            <div class="col-md-2 text-center text-md-right">
+                <a href="{{ url_for('students.view_student', student_id=student.id) }}" 
+                   class="btn btn-light btn-sm">
+                    <i class="fas fa-eye mr-1"></i>View Profile
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" id="editStudentForm">
+        <!-- Display Errors -->
+        {% with messages = get_flashed_messages(category_filter=['danger']) %}
+            {% if messages %}
+            <div class="form-errors">
+                <h6><i class="fas fa-exclamation-triangle mr-2"></i>Please correct the following errors:</h6>
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div>
+                            <i class="fas fa-user"></i>Personal Information
+                        </div>
+                        <i class="fas fa-chevron-down collapse-toggle" data-toggle="collapse" 
+                           data-target="#personalInfo" aria-expanded="true"></i>
+                    </div>
+                    <div class="section-body collapse show" id="personalInfo">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="first_name" class="required-field">First Name</label>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" 
+                                           value="{{ student.first_name }}" required>
+                                    <div class="field-help">Student's first name</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="last_name" class="required-field">Last Name</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" 
+                                           value="{{ student.last_name }}" required>
+                                    <div class="field-help">Student's last name</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="gender" class="required-field">Gender</label>
+                                    <select class="form-control" id="gender" name="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="Male" {{ 'selected' if student.gender == 'Male' else '' }}>Male</option>
+                                        <option value="Female" {{ 'selected' if student.gender == 'Female' else '' }}>Female</option>
+                                        <option value="Other" {{ 'selected' if student.gender == 'Other' else '' }}>Other</option>
+                                    </select>
+                                    <div class="field-help">Student's gender</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="date_of_birth" class="required-field">Date of Birth</label>
+                                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" 
+                                           value="{{ student.date_of_birth.strftime('%Y-%m-%d') if student.date_of_birth else '' }}" required>
+                                    <div class="field-help">Student's date of birth</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" 
+                                           value="{{ student.phone or '' }}">
+                                    <div class="field-help">Student's contact number</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email" 
+                                           value="{{ student.email or '' }}">
+                                    <div class="field-help">Student's email address</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea class="form-control" id="address" name="address" rows="3">{{ student.address or '' }}</textarea>
+                            <div class="field-help">Student's home address</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Information -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div>
+                            <i class="fas fa-graduation-cap"></i>Academic Information
+                        </div>
+                        <i class="fas fa-chevron-down collapse-toggle" data-toggle="collapse" 
+                           data-target="#academicInfo" aria-expanded="true"></i>
+                    </div>
+                    <div class="section-body collapse show" id="academicInfo">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="student_id" class="required-field">Student ID</label>
+                                    <input type="text" class="form-control" id="student_id" name="student_id" 
+                                           value="{{ student.student_id }}" required>
+                                    <div class="field-help">Unique student identifier</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="grade_level" class="required-field">Grade Level</label>
+                                    <select class="form-control" id="grade_level" name="grade_level" required>
+                                        <option value="">Select Grade</option>
+                                        {% for grade in range(1, 13) %}
+                                        <option value="{{ grade }}" {{ 'selected' if student.grade_level == grade else '' }}>Grade {{ grade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="field-help">Current grade level</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="enrollment_date" class="required-field">Enrollment Date</label>
+                                    <input type="date" class="form-control" id="enrollment_date" name="enrollment_date" 
+                                           value="{{ student.enrollment_date.strftime('%Y-%m-%d') if student.enrollment_date else '' }}" required>
+                                    <div class="field-help">Date student enrolled</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="section">Section/Class</label>
+                                    <input type="text" class="form-control" id="section" name="section" 
+                                           value="{{ student.section or '' }}">
+                                    <div class="field-help">Student's class or section</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guardian Information -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div>
+                            <i class="fas fa-users"></i>Guardian Information
+                        </div>
+                        <i class="fas fa-chevron-down collapse-toggle" data-toggle="collapse" 
+                           data-target="#guardianInfo" aria-expanded="false"></i>
+                    </div>
+                    <div class="section-body collapse" id="guardianInfo">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="guardian_name">Guardian Name</label>
+                                    <input type="text" class="form-control" id="guardian_name" name="guardian_name" 
+                                           value="{{ student.guardian_name or '' }}">
+                                    <div class="field-help">Primary guardian's full name</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="guardian_relationship">Relationship</label>
+                                    <select class="form-control" id="guardian_relationship" name="guardian_relationship">
+                                        <option value="">Select Relationship</option>
+                                        <option value="Father" {{ 'selected' if student.guardian_relationship == 'Father' else '' }}>Father</option>
+                                        <option value="Mother" {{ 'selected' if student.guardian_relationship == 'Mother' else '' }}>Mother</option>
+                                        <option value="Grandfather" {{ 'selected' if student.guardian_relationship == 'Grandfather' else '' }}>Grandfather</option>
+                                        <option value="Grandmother" {{ 'selected' if student.guardian_relationship == 'Grandmother' else '' }}>Grandmother</option>
+                                        <option value="Uncle" {{ 'selected' if student.guardian_relationship == 'Uncle' else '' }}>Uncle</option>
+                                        <option value="Aunt" {{ 'selected' if student.guardian_relationship == 'Aunt' else '' }}>Aunt</option>
+                                        <option value="Brother" {{ 'selected' if student.guardian_relationship == 'Brother' else '' }}>Brother</option>
+                                        <option value="Sister" {{ 'selected' if student.guardian_relationship == 'Sister' else '' }}>Sister</option>
+                                        <option value="Other" {{ 'selected' if student.guardian_relationship == 'Other' else '' }}>Other</option>
+                                    </select>
+                                    <div class="field-help">Relationship to student</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="guardian_phone">Guardian Phone</label>
+                                    <input type="tel" class="form-control" id="guardian_phone" name="guardian_phone" 
+                                           value="{{ student.guardian_phone or '' }}">
+                                    <div class="field-help">Guardian's contact number</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="guardian_email">Guardian Email</label>
+                                    <input type="email" class="form-control" id="guardian_email" name="guardian_email" 
+                                           value="{{ student.guardian_email or '' }}">
+                                    <div class="field-help">Guardian's email address</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emergency_contact">Emergency Contact</label>
+                            <textarea class="form-control" id="emergency_contact" name="emergency_contact" rows="2">{{ student.emergency_contact or '' }}</textarea>
+                            <div class="field-help">Emergency contact information</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Notes -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div>
+                            <i class="fas fa-sticky-note"></i>Additional Notes
+                        </div>
+                        <i class="fas fa-chevron-down collapse-toggle" data-toggle="collapse" 
+                           data-target="#notesInfo" aria-expanded="false"></i>
+                    </div>
+                    <div class="section-body collapse" id="notesInfo">
+                        <div class="form-group">
+                            <label for="notes">Notes</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="4">{{ student.notes or '' }}</textarea>
+                            <div class="field-help">Additional information about the student</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Photo Upload -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div>
+                            <i class="fas fa-camera"></i>Student Photo
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div class="photo-section">
+                            <img src="{{ url_for('students.student_photo', student_id=student.id) }}" 
+                                 alt="Current Photo" class="current-photo"
+                                 onerror="this.src='{{ url_for('static', filename='images/default_avatar.png') }}'">
+                            <div class="form-group mb-0">
+                                <label for="photo" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-upload mr-1"></i>Change Photo
+                                </label>
+                                <input type="file" class="form-control-file d-none" id="photo" name="photo" accept="image/*">
+                                <div class="field-help mt-2">Upload a new photo (JPG, PNG, GIF)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div>
+                            <i class="fas fa-toggle-on"></i>Status
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div class="status-toggle">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="status" name="status" 
+                                       {{ 'checked' if student.status == 'active' else '' }}>
+                                <label class="form-check-label" for="status">
+                                    <strong>Active Student</strong>
+                                    <div class="field-help">Uncheck to mark as inactive</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audit Information -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div>
+                            <i class="fas fa-info-circle"></i>Record Information
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div class="audit-info">
+                            <div class="mb-2">
+                                <small><strong>Created:</strong> {{ student.created_at.strftime('%B %d, %Y at %I:%M %p') if student.created_at else 'Unknown' }}</small>
+                            </div>
+                            <div class="mb-2">
+                                <small><strong>Last Updated:</strong> {{ student.updated_at.strftime('%B %d, %Y at %I:%M %p') if student.updated_at else 'Never' }}</small>
+                            </div>
+                            <div>
+                                <small><strong>Record ID:</strong> {{ student.id }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-section">
+            <div class="form-actions">
+                <div>
+                    <a href="{{ url_for('students.list_students') }}" class="btn btn-secondary btn-action">
+                        <i class="fas fa-arrow-left mr-1"></i>Cancel
+                    </a>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-warning btn-action mr-2" onclick="resetForm()">
+                        <i class="fas fa-undo mr-1"></i>Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-action">
+                        <i class="fas fa-save mr-1"></i>Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Form validation and interactions
+    document.addEventListener('DOMContentLoaded', function() {
+        // Photo preview
+        document.getElementById('photo').addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('.current-photo').src = e.target.result;
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Collapse toggles
+        document.querySelectorAll('.collapse-toggle').forEach(function(toggle) {
+            toggle.addEventListener('click', function() {
+                const target = document.querySelector(this.getAttribute('data-target'));
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                
+                if (isExpanded) {
+                    target.classList.remove('show');
+                } else {
+                    target.classList.add('show');
+                }
+            });
+        });
+
+        // Form validation
+        document.getElementById('editStudentForm').addEventListener('submit', function(e) {
+            const requiredFields = ['first_name', 'last_name', 'gender', 'date_of_birth', 'student_id', 'grade_level', 'enrollment_date'];
+            let isValid = true;
+
+            requiredFields.forEach(function(fieldName) {
+                const field = document.getElementById(fieldName);
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault();
+                alert('Please fill in all required fields.');
+            }
+        });
+    });
+
+    function resetForm() {
+        if (confirm('Are you sure you want to reset all changes? This will restore the original values.')) {
+            document.getElementById('editStudentForm').reset();
+            // Reload to restore original values
+            location.reload();
+        }
+    }
+</script>
+{% endblock %}

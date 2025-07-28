@@ -1,0 +1,13 @@
+{# templates/teachers/view.html #}
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Teacher Profile</h2>
+<img src="{{ url_for('teachers.serve_teacher_photo', filename=teacher.photo or 'default.jpg') }}" alt="Photo" class="w-40 h-40 rounded">
+<ul class="mt-4">
+  <li><strong>Name:</strong> {{ teacher.FirstName }} {{ teacher.LastName }}</li>
+  <li><strong>Subjects Taught:</strong> {{ teacher.Subjects_taught }}</li>
+  <li><strong>Email:</strong> {{ teacher.Email }}</li>
+  <li><strong>Phone:</strong> {{ teacher.PhoneNumber }}</li>
+</ul>
+<a href="{{ url_for('teachers.edit_teacher', teacher_id=teacher.TeacherID) }}" class="mt-4 inline-block text-blue-600">Edit</a>
+{% endblock %}

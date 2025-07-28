@@ -1,0 +1,463 @@
+{% extends "base.html" %}
+
+{% block title %}Students - School Management System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .search-filters {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .student-card {
+        transition: all 0.3s ease;
+        border: 1px solid #e3e6f0;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .student-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .student-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 15px;
+    }
+    
+    .pagination-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+    
+    .table-actions {
+        display: flex;
+        gap: 5px;
+    }
+    
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .loading-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 9999;
+    }
+    
+    .loading-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 24px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-users mr-2"></i>Students Management
+        </h1>
+        <div class="btn-group">
+            {% if current_user.role == 'admin' %}
+            <a href="{{ url_for('students.new_student') }}" class="btn btn-primary">
+                <i class="fas fa-plus mr-1"></i>Add Student
+            </a>
+            <a href="{{ url_for('students.bulk_import') }}" class="btn btn-info">
+                <i class="fas fa-upload mr-1"></i>Bulk Import
+            </a>
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fas fa-download mr-1"></i>Export
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ url_for('students.export_students') }}">All Students</a>
+                    <a class="dropdown-item" href="{{ url_for('students.export_students', class=current_filters.class) }}">Current Filter</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="search-filters">
+        <form method="GET" id="filterForm">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="search">Search Students</label>
+                        <input type="text" class="form-control" id="search" name="search" 
+                               value="{{ current_filters.search }}" 
+                               placeholder="Name, ID, or Guardian...">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="class">Class</label>
+                        <select class="form-control" id="class" name="class">
+                            <option value="">All Classes</option>
+                            {% for class_name in classes %}
+                            <option value="{{ class_name }}" 
+                                    {% if current_filters.class == class_name %}selected{% endif %}>
+                                {{ class_name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" id="gender" name="gender">
+                            <option value="">All Genders</option>
+                            <option value="Male" {% if current_filters.gender == 'Male' %}selected{% endif %}>Male</option>
+                            <option value="Female" {% if current_filters.gender == 'Female' %}selected{% endif %}>Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="sort">Sort By</label>
+                        <select class="form-control" id="sort" name="sort">
+                            <option value="last_name" {% if current_filters.sort == 'last_name' %}selected{% endif %}>Last Name</option>
+                            <option value="first_name" {% if current_filters.sort == 'first_name' %}selected{% endif %}>First Name</option>
+                            <option value="student_id" {% if current_filters.sort == 'student_id' %}selected{% endif %}>Student ID</option>
+                            <option value="class" {% if current_filters.sort == 'class' %}selected{% endif %}>Class</option>
+                            <option value="admission_date" {% if current_filters.sort == 'admission_date' %}selected{% endif %}>Admission Date</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="order">Order</label>
+                        <select class="form-control" id="order" name="order">
+                            <option value="asc" {% if current_filters.order == 'asc' %}selected{% endif %}>Ascending</option>
+                            <option value="desc" {% if current_filters.order == 'desc' %}selected{% endif %}>Descending</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search mr-1"></i>Filter
+                    </button>
+                    <a href="{{ url_for('students.list_students') }}" class="btn btn-secondary">
+                        <i class="fas fa-times mr-1"></i>Clear
+                    </a>
+                    <div class="float-right">
+                        <small class="text-muted">
+                            {% if pagination %}
+                            Showing {{ ((pagination.page - 1) * pagination.per_page) + 1 }} to 
+                            {{ min(pagination.page * pagination.per_page, pagination.total) }} of 
+                            {{ pagination.total }} students
+                            {% endif %}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Students Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Students List</h6>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in">
+                    <div class="dropdown-header">Table Options:</div>
+                    <a class="dropdown-item" href="#" onclick="printTable()">
+                        <i class="fas fa-print fa-sm fa-fw mr-2 text-gray-400"></i>Print
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if students %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="studentsTable">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Photo</th>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Class</th>
+                            <th>Guardian</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            {% if current_user.role == 'admin' %}
+                            <th>Actions</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                        <tr class="student-row" data-student-id="{{ student.id }}">
+                            <td class="text-center">
+                                <img src="{{ url_for('students.student_photo', student_id=student.id) }}" 
+                                     alt="{{ student.first_name }}" class="student-avatar"
+                                     onerror="this.src='{{ url_for('static', filename='images/default_avatar.png') }}'">
+                            </td>
+                            <td><strong>{{ student.student_id }}</strong></td>
+                            <td>
+                                <a href="{{ url_for('students.view_student', student_id=student.id) }}" 
+                                   class="text-decoration-none">
+                                    {{ student.first_name }} {{ student.last_name }}
+                                </a>
+                            </td>
+                            <td>
+                                <i class="fas fa-{{ 'male' if student.gender == 'Male' else 'female' }} 
+                                   text-{{ 'primary' if student.gender == 'Male' else 'danger' }} mr-1"></i>
+                                {{ student.gender }}
+                            </td>
+                            <td><span class="badge badge-info">{{ student.class_name }}</span></td>
+                            <td>{{ student.guardian_name }}</td>
+                            <td>
+                                {% if student.guardian_phone %}
+                                <a href="tel:{{ student.guardian_phone }}" class="text-decoration-none">
+                                    <i class="fas fa-phone fa-sm mr-1"></i>{{ student.guardian_phone }}
+                                </a>
+                                {% else %}
+                                <span class="text-muted">N/A</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="status-badge badge badge-{{ 'success' if student.status == 'active' else 'secondary' }}">
+                                    {{ student.status.title() }}
+                                </span>
+                            </td>
+                            {% if current_user.role == 'admin' %}
+                            <td>
+                                <div class="table-actions">
+                                    <a href="{{ url_for('students.view_student', student_id=student.id) }}" 
+                                       class="btn btn-info btn-sm" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ url_for('students.edit_student', student_id=student.id) }}" 
+                                       class="btn btn-warning btn-sm" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-{{ 'secondary' if student.status == 'active' else 'success' }} btn-sm" 
+                                            onclick="toggleStatus({{ student.id }}, '{{ student.status }}')" 
+                                            title="{{ 'Deactivate' if student.status == 'active' else 'Activate' }}">
+                                        <i class="fas fa-{{ 'ban' if student.status == 'active' else 'check' }}"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm" 
+                                            onclick="confirmDelete({{ student.id }}, '{{ student.first_name }} {{ student.last_name }}')" 
+                                            title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            {% if pagination and pagination.pages > 1 %}
+            <div class="pagination-container">
+                <div>
+                    <small class="text-muted">
+                        Page {{ pagination.page }} of {{ pagination.pages }}
+                    </small>
+                </div>
+                <nav aria-label="Student pagination">
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+                            <a class="page-link" href="{{ url_for('students.list_students', 
+                                page=pagination.prev_num, search=current_filters.search,
+                                class=current_filters.class, gender=current_filters.gender,
+                                sort=current_filters.sort, order=current_filters.order) if pagination.has_prev }}">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        </li>
+                        
+                        {% for page_num in range(max(1, pagination.page - 2), min(pagination.pages + 1, pagination.page + 3)) %}
+                        <li class="page-item {% if page_num == pagination.page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('students.list_students', 
+                                page=page_num, search=current_filters.search,
+                                class=current_filters.class, gender=current_filters.gender,
+                                sort=current_filters.sort, order=current_filters.order) }}">
+                                {{ page_num }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                        
+                        <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+                            <a class="page-link" href="{{ url_for('students.list_students', 
+                                page=pagination.next_num, search=current_filters.search,
+                                class=current_filters.class, gender=current_filters.gender,
+                                sort=current_filters.sort, order=current_filters.order) if pagination.has_next }}">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            {% endif %}
+            
+            {% else %}
+            <div class="text-center py-4">
+                <i class="fas fa-users fa-3x text-gray-300 mb-3"></i>
+                <h5 class="text-gray-500">No students found</h5>
+                <p class="text-gray-400">
+                    {% if current_filters.search or current_filters.class or current_filters.gender %}
+                    Try adjusting your search criteria or <a href="{{ url_for('students.list_students') }}">clear filters</a>.
+                    {% else %}
+                    Get started by <a href="{{ url_for('students.new_student') }}">adding your first student</a>.
+                    {% endif %}
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+        <div>Processing...</div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete student <strong id="studentName"></strong>?</p>
+                <p class="text-danger"><small>This action cannot be undone.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form method="POST" id="deleteForm" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Delete Student</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Auto-submit form on filter change
+$('#class, #gender, #sort, #order').change(function() {
+    $('#filterForm').submit();
+});
+
+// Search with debounce
+let searchTimeout;
+$('#search').on('input', function() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(function() {
+        $('#filterForm').submit();
+    }, 500);
+});
+
+// Show loading overlay on form submit
+$('#filterForm').on('submit', function() {
+    $('#loadingOverlay').show();
+});
+
+// Toggle student status
+function toggleStatus(studentId, currentStatus) {
+    const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+    const action = newStatus === 'active' ? 'activate' : 'deactivate';
+    
+    if (confirm(`Are you sure you want to ${action} this student?`)) {
+        $.ajax({
+            url: `/students/${studentId}/toggle-status`,
+            method: 'POST',
+            success: function(response) {
+                if (response.success) {
+                    location.reload();
+                } else {
+                    alert('Error updating student status');
+                }
+            },
+            error: function() {
+                alert('Error updating student status');
+            }
+        });
+    }
+}
+
+// Confirm delete
+function confirmDelete(studentId, studentName) {
+    $('#studentName').text(studentName);
+    $('#deleteForm').attr('action', `/students/${studentId}/delete`);
+    $('#deleteModal').modal('show');
+}
+
+// Print table
+function printTable() {
+    const printWindow = window.open('', '_blank');
+    const tableHtml = $('#studentsTable').prop('outerHTML');
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>Students List</title>
+            <style>
+                table { border-collapse: collapse; width: 100%; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                th { background-color: #f2f2f2; }
+                .table-actions { display: none; }
+            </style>
+        </head>
+        <body>
+            <h2>Students List</h2>
+            ${tableHtml}
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
+}
+
+// Hide loading overlay when page loads
+$(document).ready(function() {
+    $('#loadingOverlay').hide();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,31 @@
+# templates/expenses/edit.html
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Expense</h2>
+    <form method="POST" class="mt-3">
+        <div class="mb-3">
+            <label for="Title" class="form-label">Title</label>
+            <input type="text" class="form-control" name="Title" value="{{ expense.Title }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="Amount" class="form-label">Amount</label>
+            <input type="number" class="form-control" name="Amount" value="{{ expense.Amount }}" step="0.01" required>
+        </div>
+        <div class="mb-3">
+            <label for="ExpenseDate" class="form-label">Date</label>
+            <input type="date" class="form-control" name="ExpenseDate" value="{{ expense.ExpenseDate }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="Category" class="form-label">Category</label>
+            <input type="text" class="form-control" name="Category" value="{{ expense.Category }}">
+        </div>
+        <div class="mb-3">
+            <label for="Notes" class="form-label">Notes</label>
+            <textarea class="form-control" name="Notes">{{ expense.Notes }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ url_for('expenses.view_expense', expense_id=expense.ExpenseID) }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

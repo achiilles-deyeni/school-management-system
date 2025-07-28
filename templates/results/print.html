@@ -1,0 +1,64 @@
+# templates/results/print.html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Printable Results</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: url('/static/images/result_background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #000;
+    }
+    .sheet {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      margin: 30px auto;
+      width: 80%;
+      border: 2px solid #000;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="sheet">
+  <h2 style="text-align:center;">Term Result Sheet</h2>
+  <p><strong>Student:</strong> {{ student.FirstName }} {{ student.LastName }}</p>
+  <p><strong>ID:</strong> {{ student.StudentID }}</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Term</th>
+        <th>Subject</th>
+        <th>Score</th>
+        <th>Grade</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+      <tr>
+        <td>{{ result.AcademicYear }}</td>
+        <td>{{ result.Term }}</td>
+        <td>{{ result.Subject }}</td>
+        <td>{{ result.Score }}</td>
+        <td>{{ result.Grade }}</td>
+        <td>{{ result.Remarks }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!-- templates/students/list.html -->
+{% extends "base.html" %}
+
+{% block title %}All Students{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Students List</h1>
+
+    <!-- Action Buttons -->
+    <div class="mb-4">
+        <a href="{{ url_for('new_student') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add New Student
+        </a>
+    </div>
+        <div class="mb-4">
+        <a href="{{ url_for('list_results') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> view results
+        </a>
+    </div>
+
+    <!-- Students Table -->
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Gender</th>
+                            <th>Date of Birth</th>
+                            <th>Guardian</th>
+                            <th>Guardian Tel</th>
+                            <th>Admission Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if students %}
+                            {% for student in students %}
+                            <tr>
+                                <td>{{ student['StudentID'] }}</td>
+                                <td>{{ student['FirstName'] }} {{ student['LastName'] }}</td>
+                                <td>{{ student['Class'] }}</td>
+                                <td>{{ student['Gender'] }}</td>
+                                <td>{{ student['DateOfBirth'] }}</td>
+                                <td>{{ student['GuardianName'] }}</td>
+                                <td>{{ student['GuardianTel'] }}</td>
+                                <td>{{ student['AdmissionDate'] }}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ url_for('view_student', student_id=student['StudentID']) }}" class="btn btn-sm btn-info" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ url_for('edit_student', student_id=student['StudentID']) }}" class="btn btn-sm btn-warning" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+                                                data-target="#deleteModal"
+                                                data-student-id="{{ student['StudentID'] }}"
+                                                data-student-name="{{ student['FirstName'] }} {{ student['LastName'] }}"
+                                                title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="9" class="text-center">No students found</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <span id="studentName"></span>?</p>
+                <p class="text-danger">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="POST" action="{{ url_for('delete_student') }}">
+                    <input type="hidden" id="studentIdInput" name="student_id" value="">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Delete Modal -->
+<script>
+    $(document).ready(function() {
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var studentId = button.data('student-id');
+            var studentName = button.data('student-name');
+
+            var modal = $(this);
+            modal.find('#studentName').text(studentName);
+            modal.find('#studentIdInput').val(studentId);
+        });
+    });
+</script>
+{% endblock %}

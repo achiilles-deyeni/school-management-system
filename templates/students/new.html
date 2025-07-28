@@ -1,0 +1,834 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Student - School Management System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-wizard {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+    
+    .wizard-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+    }
+    
+    .wizard-steps {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0;
+        background: #f8f9fc;
+        border-bottom: 1px solid #e3e6f0;
+    }
+    
+    .step {
+        display: flex;
+        align-items: center;
+        margin: 0 20px;
+        color: #858796;
+        font-weight: 600;
+    }
+    
+    .step.active {
+        color: #5a5c69;
+    }
+    
+    .step.completed {
+        color: #1cc88a;
+    }
+    
+    .step-number {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #e3e6f0;
+        color: #858796;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+    
+    .step.active .step-number {
+        background: #4e73df;
+        color: white;
+    }
+    
+    .step.completed .step-number {
+        background: #1cc88a;
+        color: white;
+    }
+    
+    .step.completed .step-number::after {
+        content: '✓';
+        font-size: 12px;
+    }
+    
+    .step.completed .step-number span {
+        display: none;
+    }
+    
+    .wizard-content {
+        padding: 40px;
+        min-height: 500px;
+    }
+    
+    .wizard-step {
+        display: none;
+    }
+    
+    .wizard-step.active {
+        display: block;
+        animation: fadeIn 0.3s ease-in;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .form-section {
+        margin-bottom: 30px;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #5a5c69;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e3e6f0;
+        display: flex;
+        align-items: center;
+    }
+    
+    .section-title i {
+        margin-right: 10px;
+        color: #4e73df;
+    }
+    
+    .form-group label {
+        font-weight: 600;
+        color: #5a5c69;
+        margin-bottom: 8px;
+    }
+    
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #d1d3e2;
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    .form-control:focus {
+        border-color: #4e73df;
+        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    }
+    
+    .photo-upload {
+        border: 2px dashed #d1d3e2;
+        border-radius: 8px;
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .photo-upload:hover {
+        border-color: #4e73df;
+        background-color: #f8f9fc;
+    }
+    
+    .photo-upload.dragover {
+        border-color: #1cc88a;
+        background-color: #f1f8f6;
+    }
+    
+    .photo-preview {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #e3e6f0;
+        margin-bottom: 15px;
+    }
+    
+    .wizard-navigation {
+        padding: 20px 40px;
+        background: #f8f9fc;
+        border-top: 1px solid #e3e6f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .btn-wizard {
+        padding: 10px 25px;
+        border-radius: 25px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .required-field::after {
+        content: '*';
+        color: #e74a3b;
+        margin-left: 3px;
+    }
+    
+    .field-help {
+        font-size: 12px;
+        color: #858796;
+        margin-top: 5px;
+    }
+    
+    .form-errors {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .form-errors ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+    
+    .form-errors li {
+        color: #721c24;
+        margin-bottom: 5px;
+    }
+    
+    @media (max-width: 768px) {
+        .wizard-steps {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .step {
+            margin: 5px 0;
+        }
+        
+        .wizard-content {
+            padding: 20px;
+        }
+        
+        .wizard-navigation {
+            padding: 15px 20px;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .btn-wizard {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+            <div class="form-wizard">
+                <!-- Wizard Header -->
+                <div class="wizard-header">
+                    <h2 class="mb-2">
+                        <i class="fas fa-user-plus mr-3"></i>Add New Student
+                    </h2>
+                    <p class="mb-0 opacity-75">Fill in the student information step by step</p>
+                </div>
+
+                <!-- Wizard Steps -->
+                <div class="wizard-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number"><span>1</span></div>
+                        <span>Personal Info</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number"><span>2</span></div>
+                        <span>Guardian Info</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number"><span>3</span></div>
+                        <span>Academic Info</span>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number"><span>4</span></div>
+                        <span>Additional Info</span>
+                    </div>
+                </div>
+
+                <form method="POST" enctype="multipart/form-data" id="studentForm">
+                    <!-- Display Errors -->
+                    {% with messages = get_flashed_messages(category_filter=['danger']) %}
+                        {% if messages %}
+                        <div class="form-errors">
+                            <h6><i class="fas fa-exclamation-triangle mr-2"></i>Please correct the following errors:</h6>
+                            <ul>
+                                {% for message in messages %}
+                                <li>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    {% endwith %}
+
+                    <div class="wizard-content">
+                        <!-- Step 1: Personal Information -->
+                        <div class="wizard-step active" data-step="1">
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-user"></i>Personal Information
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="first_name" class="required-field">First Name</label>
+                                            <input type="text" class="form-control" id="first_name" name="first_name" 
+                                                   value="{{ student_data.first_name if student_data else '' }}" required>
+                                            <div class="field-help">Enter the student's first name</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="last_name" class="required-field">Last Name</label>
+                                            <input type="text" class="form-control" id="last_name" name="last_name" 
+                                                   value="{{ student_data.last_name if student_data else '' }}" required>
+                                            <div class="field-help">Enter the student's last name</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="gender" class="required-field">Gender</label>
+                                            <select class="form-control" id="gender" name="gender" required>
+                                                <option value="">Select Gender</option>
+                                                <option value="Male" {{ 'selected' if student_data and student_data.gender == 'Male' else '' }}>Male</option>
+                                                <option value="Female" {{ 'selected' if student_data and student_data.gender == 'Female' else '' }}>Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="date_of_birth" class="required-field">Date of Birth</label>
+                                            <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" 
+                                                   value="{{ student_data.date_of_birth if student_data else '' }}" required>
+                                            <div class="field-help">Student's date of birth</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address">Home Address</label>
+                                    <textarea class="form-control" id="address" name="address" rows="3" 
+                                              placeholder="Enter complete home address">{{ student_data.address if student_data else '' }}</textarea>
+                                    <div class="field-help">Complete residential address</div>
+                                </div>
+                            </div>
+
+                            <!-- Photo Upload Section -->
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-camera"></i>Student Photo
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="text-center">
+                                            <img id="photoPreview" src="{{ url_for('static', filename='images/default_avatar.png') }}" 
+                                                 alt="Photo Preview" class="photo-preview">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="photo-upload" onclick="document.getElementById('photo').click()">
+                                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                            <h5 class="text-muted">Click to upload or drag and drop</h5>
+                                            <p class="text-muted mb-0">PNG, JPG, JPEG (Max 5MB)</p>
+                                            <input type="file" id="photo" name="photo" accept="image/*" style="display: none;">
+                                        </div>
+                                        <div class="field-help mt-2">Optional: Upload a clear photo of the student</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Guardian Information -->
+                        <div class="wizard-step" data-step="2">
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-users"></i>Guardian Information
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="guardian_name" class="required-field">Guardian Name</label>
+                                            <input type="text" class="form-control" id="guardian_name" name="guardian_name"
+                                                   value="{{ student_data.guardian_name if student_data else '' }}" required>
+                                            <div class="field-help">Full name of parent/guardian</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="guardian_phone" class="required-field">Guardian Phone</label>
+                                            <input type="tel" class="form-control" id="guardian_phone" name="guardian_phone"
+                                                   value="{{ student_data.guardian_phone if student_data else '' }}" required>
+                                            <div class="field-help">Primary contact number</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="guardian_email">Guardian Email</label>
+                                            <input type="email" class="form-control" id="guardian_email" name="guardian_email"
+                                                   value="{{ student_data.guardian_email if student_data else '' }}">
+                                            <div class="field-help">Email address for communications (optional)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Emergency Contact Section -->
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-exclamation-triangle"></i>Emergency Contact
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="emergency_contact">Emergency Contact Name</label>
+                                            <input type="text" class="form-control" id="emergency_contact" name="emergency_contact"
+                                                   value="{{ student_data.emergency_contact if student_data else '' }}">
+                                            <div class="field-help">Person to contact in emergencies</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="emergency_phone">Emergency Phone</label>
+                                            <input type="tel" class="form-control" id="emergency_phone" name="emergency_phone"
+                                                   value="{{ student_data.emergency_phone if student_data else '' }}">
+                                            <div class="field-help">Emergency contact number</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Academic Information -->
+                        <div class="wizard-step" data-step="3">
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-graduation-cap"></i>Academic Information
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="class_name" class="required-field">Class</label>
+                                            <input type="text" class="form-control" id="class_name" name="class_name"
+                                                   value="{{ student_data.class_name if student_data else '' }}"
+                                                   placeholder="e.g., Grade 1A, Primary 3B" required>
+                                            <div class="field-help">Student's assigned class</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="admission_date">Admission Date</label>
+                                            <input type="date" class="form-control" id="admission_date" name="admission_date"
+                                                   value="{{ student_data.admission_date if student_data else date.today() }}">
+                                            <div class="field-help">Date of enrollment (defaults to today)</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="teacher_id">Class Teacher</label>
+                                            <select class="form-control" id="teacher_id" name="teacher_id">
+                                                <option value="">Select Class Teacher (Optional)</option>
+                                                {% for teacher in teachers %}
+                                                <option value="{{ teacher.id }}"
+                                                        {{ 'selected' if student_data and student_data.teacher_id == teacher.id|string else '' }}>
+                                                    {{ teacher.first_name }} {{ teacher.last_name }} - {{ teacher.subject or 'General' }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                            <div class="field-help">Assign a class teacher (optional)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Additional Information -->
+                        <div class="wizard-step" data-step="4">
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-info-circle"></i>Additional Information
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="medical_info">Medical Information</label>
+                                    <textarea class="form-control" id="medical_info" name="medical_info" rows="4"
+                                              placeholder="Any medical conditions, allergies, medications, or special health requirements...">{{ student_data.medical_info if student_data else '' }}</textarea>
+                                    <div class="field-help">Important medical information for school records</div>
+                                </div>
+
+                                <!-- Summary Section -->
+                                <div class="form-section">
+                                    <div class="section-title">
+                                        <i class="fas fa-clipboard-check"></i>Summary
+                                    </div>
+
+                                    <div class="alert alert-info">
+                                        <h6><i class="fas fa-info-circle mr-2"></i>Review Information</h6>
+                                        <p class="mb-0">Please review all the information before submitting. You can go back to previous steps to make changes if needed.</p>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header bg-primary text-white">
+                                                    <h6 class="mb-0"><i class="fas fa-user mr-2"></i>Personal Details</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="mb-1"><strong>Name:</strong> <span id="summary-name">-</span></p>
+                                                    <p class="mb-1"><strong>Gender:</strong> <span id="summary-gender">-</span></p>
+                                                    <p class="mb-0"><strong>Date of Birth:</strong> <span id="summary-dob">-</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header bg-success text-white">
+                                                    <h6 class="mb-0"><i class="fas fa-users mr-2"></i>Guardian Details</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="mb-1"><strong>Guardian:</strong> <span id="summary-guardian">-</span></p>
+                                                    <p class="mb-1"><strong>Phone:</strong> <span id="summary-phone">-</span></p>
+                                                    <p class="mb-0"><strong>Email:</strong> <span id="summary-email">-</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header bg-info text-white">
+                                                    <h6 class="mb-0"><i class="fas fa-graduation-cap mr-2"></i>Academic Details</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="mb-1"><strong>Class:</strong> <span id="summary-class">-</span></p>
+                                                    <p class="mb-0"><strong>Admission Date:</strong> <span id="summary-admission">-</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header bg-warning text-white">
+                                                    <h6 class="mb-0"><i class="fas fa-exclamation-triangle mr-2"></i>Emergency Contact</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="mb-1"><strong>Contact:</strong> <span id="summary-emergency">-</span></p>
+                                                    <p class="mb-0"><strong>Phone:</strong> <span id="summary-emergency-phone">-</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wizard Navigation -->
+                    <div class="wizard-navigation">
+                        <button type="button" id="prevBtn" class="btn btn-secondary btn-wizard" style="display: none;">
+                            <i class="fas fa-chevron-left mr-2"></i>Previous
+                        </button>
+
+                        <div class="d-flex align-items-center">
+                            <span class="text-muted mr-3">Step <span id="currentStep">1</span> of 4</span>
+                            <div class="progress" style="width: 200px; height: 6px;">
+                                <div class="progress-bar bg-primary" id="progressBar" style="width: 25%;"></div>
+                            </div>
+                        </div>
+
+                        <button type="button" id="nextBtn" class="btn btn-primary btn-wizard">
+                            Next<i class="fas fa-chevron-right ml-2"></i>
+                        </button>
+
+                        <button type="submit" id="submitBtn" class="btn btn-success btn-wizard" style="display: none;">
+                            <i class="fas fa-check mr-2"></i>Create Student
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let currentStep = 1;
+const totalSteps = 4;
+
+$(document).ready(function() {
+    // Initialize wizard
+    updateWizardDisplay();
+    updateSummary();
+
+    // Photo upload handling
+    $('#photo').on('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            // Validate file size
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File size must be less than 5MB');
+                $(this).val('');
+                return;
+            }
+
+            // Validate file type
+            if (!file.type.match('image.*')) {
+                alert('Please select a valid image file');
+                $(this).val('');
+                return;
+            }
+
+            // Preview image
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                $('#photoPreview').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Drag and drop functionality
+    $('.photo-upload').on('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).addClass('dragover');
+    });
+
+    $('.photo-upload').on('dragleave', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).removeClass('dragover');
+    });
+
+    $('.photo-upload').on('drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).removeClass('dragover');
+
+        const files = e.originalEvent.dataTransfer.files;
+        if (files.length > 0) {
+            $('#photo')[0].files = files;
+            $('#photo').trigger('change');
+        }
+    });
+
+    // Navigation buttons
+    $('#nextBtn').on('click', function() {
+        if (validateCurrentStep()) {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateWizardDisplay();
+                updateSummary();
+            }
+        }
+    });
+
+    $('#prevBtn').on('click', function() {
+        if (currentStep > 1) {
+            currentStep--;
+            updateWizardDisplay();
+        }
+    });
+
+    // Form validation
+    $('#studentForm').on('submit', function(e) {
+        if (!validateAllSteps()) {
+            e.preventDefault();
+            return false;
+        }
+
+        // Show loading state
+        $('#submitBtn').html('<i class="fas fa-spinner fa-spin mr-2"></i>Creating Student...');
+        $('#submitBtn').prop('disabled', true);
+    });
+
+    // Real-time summary updates
+    $('input, select, textarea').on('input change', function() {
+        updateSummary();
+    });
+
+    // Step click navigation
+    $('.step').on('click', function() {
+        const targetStep = parseInt($(this).data('step'));
+        if (targetStep <= currentStep || validateStepsUpTo(targetStep - 1)) {
+            currentStep = targetStep;
+            updateWizardDisplay();
+            updateSummary();
+        }
+    });
+});
+
+function updateWizardDisplay() {
+    // Update step indicators
+    $('.step').removeClass('active completed');
+    $('.step').each(function(index) {
+        const stepNum = index + 1;
+        if (stepNum < currentStep) {
+            $(this).addClass('completed');
+        } else if (stepNum === currentStep) {
+            $(this).addClass('active');
+        }
+    });
+
+    // Update step content
+    $('.wizard-step').removeClass('active');
+    $(`.wizard-step[data-step="${currentStep}"]`).addClass('active');
+
+    // Update navigation buttons
+    $('#prevBtn').toggle(currentStep > 1);
+    $('#nextBtn').toggle(currentStep < totalSteps);
+    $('#submitBtn').toggle(currentStep === totalSteps);
+
+    // Update progress
+    const progress = (currentStep / totalSteps) * 100;
+    $('#progressBar').css('width', progress + '%');
+    $('#currentStep').text(currentStep);
+}
+
+function validateCurrentStep() {
+    let isValid = true;
+    const currentStepElement = $(`.wizard-step[data-step="${currentStep}"]`);
+
+    // Remove previous error states
+    currentStepElement.find('.form-control').removeClass('is-invalid');
+    currentStepElement.find('.invalid-feedback').remove();
+
+    // Validate required fields in current step
+    currentStepElement.find('input[required], select[required], textarea[required]').each(function() {
+        if (!$(this).val().trim()) {
+            $(this).addClass('is-invalid');
+            $(this).after('<div class="invalid-feedback">This field is required.</div>');
+            isValid = false;
+        }
+    });
+
+    // Additional validation based on step
+    if (currentStep === 1) {
+        // Validate date of birth
+        const dob = $('#date_of_birth').val();
+        if (dob) {
+            const dobDate = new Date(dob);
+            const today = new Date();
+            const age = (today - dobDate) / (365.25 * 24 * 60 * 60 * 1000);
+
+            if (age > 25 || age < 3) {
+                $('#date_of_birth').addClass('is-invalid');
+                $('#date_of_birth').after('<div class="invalid-feedback">Please enter a valid date of birth for a student.</div>');
+                isValid = false;
+            }
+        }
+    } else if (currentStep === 2) {
+        // Validate phone number format
+        const phone = $('#guardian_phone').val();
+        if (phone && !/^[\d\s\-\+\(\)]+$/.test(phone)) {
+            $('#guardian_phone').addClass('is-invalid');
+            $('#guardian_phone').after('<div class="invalid-feedback">Please enter a valid phone number.</div>');
+            isValid = false;
+        }
+
+        // Validate email format
+        const email = $('#guardian_email').val();
+        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            $('#guardian_email').addClass('is-invalid');
+            $('#guardian_email').after('<div class="invalid-feedback">Please enter a valid email address.</div>');
+            isValid = false;
+        }
+    }
+
+    if (!isValid) {
+        // Scroll to first error
+        const firstError = currentStepElement.find('.is-invalid').first();
+        if (firstError.length) {
+            firstError[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstError.focus();
+        }
+    }
+
+    return isValid;
+}
+
+function validateStepsUpTo(stepNumber) {
+    for (let i = 1; i <= stepNumber; i++) {
+        const originalStep = currentStep;
+        currentStep = i;
+        if (!validateCurrentStep()) {
+            currentStep = originalStep;
+            return false;
+        }
+    }
+    currentStep = stepNumber + 1;
+    return true;
+}
+
+function validateAllSteps() {
+    return validateStepsUpTo(totalSteps);
+}
+
+function updateSummary() {
+    // Update summary fields
+    const firstName = $('#first_name').val();
+    const lastName = $('#last_name').val();
+    $('#summary-name').text(firstName && lastName ? `${firstName} ${lastName}` : '-');
+    $('#summary-gender').text($('#gender').val() || '-');
+    $('#summary-dob').text($('#date_of_birth').val() || '-');
+    $('#summary-guardian').text($('#guardian_name').val() || '-');
+    $('#summary-phone').text($('#guardian_phone').val() || '-');
+    $('#summary-email').text($('#guardian_email').val() || '-');
+    $('#summary-class').text($('#class_name').val() || '-');
+    $('#summary-admission').text($('#admission_date').val() || '-');
+    $('#summary-emergency').text($('#emergency_contact').val() || '-');
+    $('#summary-emergency-phone').text($('#emergency_phone').val() || '-');
+}
+
+// Auto-format phone numbers
+$('#guardian_phone, #emergency_phone').on('input', function() {
+    let value = $(this).val().replace(/\D/g, '');
+    if (value.length >= 10) {
+        value = value.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+    }
+    $(this).val(value);
+});
+
+// Auto-capitalize names
+$('#first_name, #last_name, #guardian_name, #emergency_contact').on('input', function() {
+    const value = $(this).val();
+    $(this).val(value.charAt(0).toUpperCase() + value.slice(1));
+});
+</script>
+{% endblock %}

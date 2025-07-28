@@ -1,0 +1,373 @@
+2025-03-06 12:02:11,460 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 12:02:11,460 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 12:02:11,462 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:02:11,841 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:02:11,847 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:02:18,809 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:02:18] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:02:18,844 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:02:18] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:02:19,259 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:02:19] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:02:19,265 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:02:19] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:02:19,272 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:02:19] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:02:19,280 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:02:19] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:02:19,349 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:02:19] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=q3uMbqUpwRYnDiaYNaYF HTTP/1.1" 200 -
+2025-03-06 12:02:19,390 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:02:19] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=q3uMbqUpwRYnDiaYNaYF HTTP/1.1[0m" 304 -
+2025-03-06 12:14:24,526 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 12:14:24,529 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 12:14:24,535 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:14:25,952 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:14:25,979 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:14:42,690 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:14:42] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:14:42,978 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:14:42] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:14:42,981 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:14:42] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:14:43,091 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:14:43] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=ttCNIj07LS3RkEx6eHbG HTTP/1.1" 200 -
+2025-03-06 12:21:27,008 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 12:21:27,009 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 12:21:27,011 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:21:27,486 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:21:27,506 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:21:30,109 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:21:30] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:21:30,301 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:21:30] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:21:30,302 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:21:30] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:21:30,389 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:21:30] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=a3y0hPWo1yhR2vZ5BtWr HTTP/1.1" 200 -
+2025-03-06 12:21:30,429 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:21:30] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-03-06 12:22:41,349 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 12:22:41,349 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 12:22:41,351 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:22:41,692 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:22:41,696 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:22:47,422 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:22:47] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:22:47,527 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:22:47] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:22:47,527 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:22:47] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:22:47,612 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:22:47] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=kSIukaL7vOhUQHPsdsJs HTTP/1.1" 200 -
+2025-03-06 12:22:47,628 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:22:47] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-03-06 12:23:07,256 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 12:23:07,257 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 12:23:07,258 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:23:07,691 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:23:07,697 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:23:12,725 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:23:12] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:23:12,846 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:23:12] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:23:12,846 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:23:12] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:23:12,897 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:23:12] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=WeMZwQcHDnlIje0NaU6h HTTP/1.1" 200 -
+2025-03-06 12:23:40,174 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 12:23:40,471 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:23:41,638 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:23:41,648 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:23:53,924 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 12:23:53,924 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 12:23:53,925 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:23:54,366 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:23:54,372 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:23:56,505 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:23:56] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:23:56,665 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:23:56] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:23:56,666 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:23:56] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:23:56,722 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:23:56] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=xpKjwSVwlVWsAoYRqowc HTTP/1.1" 200 -
+2025-03-06 12:27:17,093 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 12:27:17,150 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:27:17,540 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:27:17,543 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:28:45,006 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 12:28:45,060 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:28:45,465 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:28:45,469 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:28:49,510 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 12:28:49,510 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 12:28:49,511 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:28:49,858 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:28:49,863 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:28:52,221 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:28:52] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:28:52,340 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:28:52] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:28:52,340 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:28:52] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:28:52,388 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:28:52] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=QgUT6iSgTqP2vMmxInuY HTTP/1.1" 200 -
+2025-03-06 12:34:34,165 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 12:34:34,165 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 12:34:34,167 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:34:34,535 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:34:34,541 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:34:36,867 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:34:36] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:34:36,985 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:34:36] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:34:36,994 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:34:36] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:34:37,048 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:34:37] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=lU0BREjYfx7DpkfCZpPG HTTP/1.1" 200 -
+2025-03-06 12:40:11,375 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 12:40:11,375 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 12:40:11,377 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:40:11,733 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:40:11,738 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:40:13,913 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:40:13] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:40:14,049 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:40:14] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:40:14,050 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:40:14] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:40:14,096 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:40:14] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=EhL6ybV87poQijGXqLa4 HTTP/1.1" 200 -
+2025-03-06 12:45:09,160 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:45:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:45:09,182 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:45:09] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:45:09,183 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:45:09] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:45:09,199 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:45:09] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=EhL6ybV87poQijGXqLa4 HTTP/1.1[0m" 304 -
+2025-03-06 12:45:09,216 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:45:09] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-03-06 12:47:29,709 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 12:47:29,710 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 12:47:29,714 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:47:30,226 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:47:30,231 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:47:32,266 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:47:32] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 12:47:32,393 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:47:32] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:47:32,393 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:47:32] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:47:32,440 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:47:32] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=NdLChaD3fG1jSwSRV0NR HTTP/1.1" 200 -
+2025-03-06 12:48:53,511 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 12:48:53,543 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 12:48:53,915 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 12:48:53,919 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 12:49:05,663 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:05] "GET / HTTP/1.1" 200 -
+2025-03-06 12:49:06,629 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 12:49:06,644 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:06] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 12:49:19,717 - __main__ - ERROR - Error in get_all_students: Could not build url for endpoint 'students.new_student_form'. Did you mean 'new_student' instead?
+2025-03-06 12:49:19,733 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:19] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 12:49:19,849 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:19] "[36mGET /students?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:49:19,850 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:19] "[36mGET /students?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:49:19,873 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:19] "GET /students?__debugger__=yes&cmd=resource&f=console.png&s=kuxSXWJDKxKzpXKqJ1X2 HTTP/1.1" 200 -
+2025-03-06 12:49:25,358 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 12:49:25,368 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:25] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 12:49:28,477 - __main__ - ERROR - Database query error: ('42S22', "[42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Subject'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Phone'. (207)"), Query: 
+        SELECT t.*, COUNT(s.StudentID) as StudentCount
+        FROM Teachers_114 t
+        LEFT JOIN Students_114 s ON t.TeacherID = s.TeacherID
+        GROUP BY t.TeacherID, t.FirstName, t.LastName, t.Subject, t.Email, t.Phone
+        ORDER BY t.LastName, t.FirstName
+        , Params: ()
+2025-03-06 12:49:28,477 - __main__ - ERROR - Error in teachers_list: ('42S22', "[42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Subject'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Phone'. (207)")
+2025-03-06 12:49:28,490 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:28] "[35m[1mGET /teachers HTTP/1.1[0m" 500 -
+2025-03-06 12:49:28,530 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:28] "GET /teachers?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-03-06 12:49:28,530 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:28] "GET /teachers?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-03-06 12:49:28,541 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:28] "GET /teachers?__debugger__=yes&cmd=resource&f=console.png&s=kuxSXWJDKxKzpXKqJ1X2 HTTP/1.1" 200 -
+2025-03-06 12:49:28,565 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:28] "GET /teachers?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-03-06 12:49:31,024 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 12:49:31,035 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:31] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 12:49:33,207 - __main__ - ERROR - Error in get_all_students: Could not build url for endpoint 'students.new_student_form'. Did you mean 'new_student' instead?
+2025-03-06 12:49:33,227 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:33] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 12:49:33,261 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:33] "[36mGET /students?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:49:33,261 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:33] "[36mGET /students?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:49:33,272 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:33] "[36mGET /students?__debugger__=yes&cmd=resource&f=console.png&s=kuxSXWJDKxKzpXKqJ1X2 HTTP/1.1[0m" 304 -
+2025-03-06 12:49:36,577 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 12:49:36,588 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:49:36] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 12:50:14,225 - __main__ - ERROR - Error in get_all_students: Could not build url for endpoint 'students.new_student_form'. Did you mean 'new_student' instead?
+2025-03-06 12:50:14,241 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:50:14] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 12:50:14,283 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:50:14] "[36mGET /students?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 12:50:14,284 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:50:14] "[36mGET /students?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 12:50:14,297 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 12:50:14] "[36mGET /students?__debugger__=yes&cmd=resource&f=console.png&s=kuxSXWJDKxKzpXKqJ1X2 HTTP/1.1[0m" 304 -
+2025-03-06 13:01:00,747 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 13:01:00,747 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 13:01:00,749 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 13:01:01,110 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 13:01:01,114 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 13:01:03,625 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:01:03] "GET / HTTP/1.1" 200 -
+2025-03-06 13:01:03,796 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:01:03,820 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:01:03] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:01:05,808 - __main__ - ERROR - Error in get_all_students: Could not build url for endpoint 'students.new_student_form'. Did you mean 'new_student' instead?
+2025-03-06 13:01:05,820 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:01:05] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 13:01:05,930 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:01:05] "[36mGET /students?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 13:01:05,931 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:01:05] "[36mGET /students?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 13:01:05,978 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:01:05] "GET /students?__debugger__=yes&cmd=resource&f=console.png&s=L6nsImpKJ0IGkyqAo25J HTTP/1.1" 200 -
+2025-03-06 13:03:52,728 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 13:03:52,729 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 13:03:52,730 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 13:03:53,200 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 13:03:53,205 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 13:03:55,213 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:03:55] "GET / HTTP/1.1" 200 -
+2025-03-06 13:03:55,375 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:03:55,394 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:03:55] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:04:01,786 - __main__ - ERROR - Error in get_all_students: Could not build url for endpoint 'students.new_student_form'. Did you mean 'new_student' instead?
+2025-03-06 13:04:01,789 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:04:01] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 13:04:01,839 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:04:01,848 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:04:01] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:13:57,407 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 13:13:58,213 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 13:14:00,422 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 13:14:00,442 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 13:14:10,676 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 13:14:10,728 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 13:14:11,860 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 13:14:11,865 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 13:14:33,933 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 13:14:33,933 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 13:14:33,935 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 13:14:34,585 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 13:14:34,589 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 13:14:36,682 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:14:36] "GET / HTTP/1.1" 200 -
+2025-03-06 13:14:36,901 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:14:36,920 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:14:36] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:14:48,693 - __main__ - ERROR - Unexpected error in students route: name 'db' is not defined
+2025-03-06 13:14:48,696 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:14:48] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 13:14:48,745 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:14:48,754 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:14:48] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:14:54,836 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:14:54] "GET / HTTP/1.1" 200 -
+2025-03-06 13:14:54,915 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:14:54,928 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:14:54] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:17:18,129 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 13:17:18,214 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 13:17:18,699 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 13:17:18,705 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 13:17:25,993 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:25] "GET / HTTP/1.1" 200 -
+2025-03-06 13:17:26,045 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:17:26,064 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:26] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:17:31,321 - __main__ - ERROR - Error in get_all_students: Could not build url for endpoint 'students.new_student_form'. Did you mean 'new_student' instead?
+2025-03-06 13:17:31,322 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:31] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 13:17:31,364 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:17:31,374 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:31] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:17:34,169 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:17:34,178 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:34] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:17:36,739 - __main__ - ERROR - Database query error: ('42S22', "[42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Subject'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Phone'. (207)"), Query: 
+        SELECT t.*, COUNT(s.StudentID) as StudentCount
+        FROM Teachers_114 t
+        LEFT JOIN Students_114 s ON t.TeacherID = s.TeacherID
+        GROUP BY t.TeacherID, t.FirstName, t.LastName, t.Subject, t.Email, t.Phone
+        ORDER BY t.LastName, t.FirstName
+        , Params: ()
+2025-03-06 13:17:36,739 - __main__ - ERROR - Error in teachers_list: ('42S22', "[42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Subject'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Phone'. (207)")
+2025-03-06 13:17:36,740 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:36] "[35m[1mGET /teachers HTTP/1.1[0m" 500 -
+2025-03-06 13:17:36,781 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:17:36,791 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:36] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:17:39,972 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:17:39,981 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:39] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:17:42,505 - __main__ - ERROR - Error in class_report: students/class_report.html
+2025-03-06 13:17:42,506 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:42] "[35m[1mGET /classes HTTP/1.1[0m" 500 -
+2025-03-06 13:17:42,546 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:17:42,559 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:42] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:17:44,746 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:17:44,759 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:44] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:17:47,074 - __main__ - ERROR - Error in class_report: students/class_report.html
+2025-03-06 13:17:47,075 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:47] "[35m[1mGET /classes HTTP/1.1[0m" 500 -
+2025-03-06 13:17:47,112 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:17:47,121 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:47] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:17:55,959 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 13:17:55,968 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 13:17:55] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 13:19:11,593 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 13:19:11,681 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 13:19:12,298 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 13:19:12,304 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 16:43:36,229 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 16:43:36,231 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 16:43:36,236 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 16:43:36,674 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 16:43:36,680 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 16:43:41,759 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:43:41] "GET / HTTP/1.1" 200 -
+2025-03-06 16:43:42,220 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 16:43:42,248 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:43:42] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 16:43:42,370 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 16:43:42,393 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:43:42] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 16:44:00,176 - __main__ - ERROR - Error in get_all_students: Could not build url for endpoint 'students.new_student_form'. Did you mean 'new_student' instead?
+2025-03-06 16:44:00,181 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:44:00] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 16:44:00,283 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 16:44:00,307 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:44:00] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 16:44:03,824 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 16:44:03,843 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:44:03] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 16:44:06,260 - __main__ - ERROR - Database query error: ('42S22', "[42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Subject'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Phone'. (207)"), Query: 
+        SELECT t.*, COUNT(s.StudentID) as StudentCount
+        FROM Teachers_114 t
+        LEFT JOIN Students_114 s ON t.TeacherID = s.TeacherID
+        GROUP BY t.TeacherID, t.FirstName, t.LastName, t.Subject, t.Email, t.Phone
+        ORDER BY t.LastName, t.FirstName
+        , Params: ()
+2025-03-06 16:44:06,261 - __main__ - ERROR - Error in teachers_list: ('42S22', "[42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Subject'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Phone'. (207)")
+2025-03-06 16:44:06,263 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:44:06] "[35m[1mGET /teachers HTTP/1.1[0m" 500 -
+2025-03-06 16:44:06,331 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 16:44:06,358 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:44:06] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 16:44:08,341 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 16:44:08,358 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:44:08] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 16:44:15,788 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 16:44:15,809 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:44:15] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 16:44:24,702 - __main__ - ERROR - Error in class_report: students/class_report.html
+2025-03-06 16:44:24,704 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:44:24] "[35m[1mGET /classes HTTP/1.1[0m" 500 -
+2025-03-06 16:44:24,802 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 16:44:24,828 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:44:24] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 16:44:27,247 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 16:44:27,271 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:44:27] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 16:47:52,057 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 16:47:52,058 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 16:47:52,059 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 16:47:52,405 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 16:47:52,409 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 16:47:54,957 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:47:54] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 16:47:55,124 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:47:55] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 16:47:55,124 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:47:55] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 16:47:55,218 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:47:55] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=MAmnVr8eWIXFDFOXfarp HTTP/1.1" 200 -
+2025-03-06 16:47:55,261 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:47:55] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-03-06 16:48:07,882 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 16:48:07,952 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 16:48:08,434 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 16:48:08,438 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 16:48:12,398 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:12] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 16:48:12,512 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:12] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 16:48:12,513 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:12] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 16:48:12,568 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:12] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=4EMcSamwoWg7yeuvAFst HTTP/1.1" 200 -
+2025-03-06 16:48:14,303 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:14] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-06 16:48:14,338 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:14] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-06 16:48:14,339 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:14] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-06 16:48:14,356 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:14] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=4EMcSamwoWg7yeuvAFst HTTP/1.1[0m" 304 -
+2025-03-06 16:48:14,374 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:14] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-03-06 16:48:45,268 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:45] "GET / HTTP/1.1" 200 -
+2025-03-06 16:48:45,420 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 16:48:45,435 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 16:48:45] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 17:57:34,972 - __main__ - ERROR - Error in get_all_students: Could not build url for endpoint 'students.new_student_form'. Did you mean 'new_student' instead?
+2025-03-06 17:57:34,978 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 17:57:34] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 17:57:35,050 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 17:57:35,073 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 17:57:35] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 17:57:48,591 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 17:57:48] "GET / HTTP/1.1" 200 -
+2025-03-06 17:57:48,730 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 17:57:48,759 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 17:57:48] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 17:57:54,403 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 17:57:54,430 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 17:57:54] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 17:58:00,173 - __main__ - ERROR - Error in get_all_students: Could not build url for endpoint 'students.new_student_form'. Did you mean 'new_student' instead?
+2025-03-06 17:58:00,174 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 17:58:00] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 17:58:00,245 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 17:58:00,271 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 17:58:00] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 17:58:02,579 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 17:58:02,603 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 17:58:02] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 18:02:03,454 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 18:02:03,616 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 18:02:04,232 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 18:02:04,244 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 18:02:17,893 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 18:02:17] "GET / HTTP/1.1" 200 -
+2025-03-06 18:02:18,336 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 18:02:18,354 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 18:02:18] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 18:02:19,914 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 18:02:19] "GET / HTTP/1.1" 200 -
+2025-03-06 18:02:20,011 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 18:02:20,021 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 18:02:20] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 18:02:23,129 - __main__ - ERROR - Database query error: ('42000', "[42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Incorrect syntax near 'LIMIT'. (102) (SQLExecDirectW); [42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Statement(s) could not be prepared. (8180)"), Query: SELECT * FROM Students_114 ORDER BY LastName, FirstName LIMIT ? OFFSET ?, Params: (10, 0)
+2025-03-06 18:02:23,130 - __main__ - ERROR - Error in get_all_students: ('42000', "[42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Incorrect syntax near 'LIMIT'. (102) (SQLExecDirectW); [42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Statement(s) could not be prepared. (8180)")
+2025-03-06 18:02:23,134 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 18:02:23] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2025-03-06 18:02:23,226 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 18:02:23,241 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 18:02:23] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 18:02:25,688 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 18:02:25,709 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 18:02:25] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 18:02:29,117 - __main__ - ERROR - Database query error: ('42S22', "[42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Subject'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Phone'. (207)"), Query: 
+        SELECT t.*, COUNT(s.StudentID) as StudentCount
+        FROM Teachers_114 t
+        LEFT JOIN Students_114 s ON t.TeacherID = s.TeacherID
+        GROUP BY t.TeacherID, t.FirstName, t.LastName, t.Subject, t.Email, t.Phone
+        ORDER BY t.LastName, t.FirstName
+        , Params: ()
+2025-03-06 18:02:29,118 - __main__ - ERROR - Error in teachers_list: ('42S22', "[42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Subject'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid column name 'Phone'. (207)")
+2025-03-06 18:02:29,120 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 18:02:29] "[35m[1mGET /teachers HTTP/1.1[0m" 500 -
+2025-03-06 18:02:29,179 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 18:02:29,190 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 18:02:29] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 18:02:31,300 - __main__ - WARNING - 404 error: /favicon.ico
+2025-03-06 18:02:31,314 - werkzeug - INFO - 127.0.0.1 - - [06/Mar/2025 18:02:31] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2025-03-06 18:03:19,788 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 18:03:19,847 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 18:03:20,303 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 18:03:20,311 - werkzeug - INFO -  * Debugger PIN: 892-197-724
+2025-03-06 18:05:34,703 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Achilles\\Desktop\\flaskproject\\app.py', reloading
+2025-03-06 18:05:34,788 - werkzeug - INFO -  * Restarting with stat

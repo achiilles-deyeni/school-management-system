@@ -1,0 +1,22 @@
+# templates/donations/create.html
+<h2 class="my-4">Record New Donation</h2>
+<form method="post">
+  <div class="mb-3">
+    <label for="DonorName" class="form-label">Donor Name</label>
+    <input type="text" class="form-control" name="DonorName" required>
+  </div>
+  <div class="mb-3">
+    <label for="Amount" class="form-label">Amount</label>
+    <input type="number" class="form-control" name="Amount" step="0.01" required>
+  </div>
+  <div class="mb-3">
+    <label for="DonationDate" class="form-label">Date</label>
+    <input type="date" class="form-control" name="DonationDate" required>
+  </div>
+  <div class="mb-3">
+    <label for="Notes" class="form-label">Notes</label>
+    <textarea class="form-control" name="Notes"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <a href="{{ url_for('donations.list_donations') }}" class="btn btn-secondary">Cancel</a>
+</form>

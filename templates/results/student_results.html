@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Results for {{ student.FirstName }} {{ student.LastName }}</h2>
+  <a href="{{ url_for('results.print_results', student_id=student.StudentID) }}" class="btn btn-success mb-3" target="_blank">Print Result Sheet</a>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Term</th>
+        <th>Subject</th>
+        <th>Score</th>
+        <th>Grade</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+      <tr>
+        <td>{{ result.AcademicYear }}</td>
+        <td>{{ result.Term }}</td>
+        <td>{{ result.Subject }}</td>
+        <td>{{ result.Score }}</td>
+        <td>{{ result.Grade }}</td>
+        <td>{{ result.Remarks }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

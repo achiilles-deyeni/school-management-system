@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Class Distribution Report{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Class Distribution Report</h1>
+    
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Students by Class</h5>
+        </div>
+        <div class="card-body">
+            {% if class_report %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Total Students</th>
+                                <th>Male</th>
+                                <th>Female</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for class_data in class_report %}
+                                <tr>
+                                    <td>{{ class_data.Class }}</td>
+                                    <td>{{ class_data.StudentCount }}</td>
+                                    <td>{{ class_data.MaleCount }}</td>
+                                    <td>{{ class_data.FemaleCount }}</td>
+                                    <td>
+                                        <a href="{{ url_for('students') }}?class={{ class_data.Class }}" class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-users"></i> View Students
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    No class data available.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Summary Statistics Cards -->
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Total Students</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ totals.TotalStudents }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Male Students</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ totals.TotalMales }} ({{ (totals.TotalMales / totals.TotalStudents * 100)|round|int }}%)</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Female Students</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ totals.TotalFemales }} ({{ (totals.TotalFemales / totals.TotalStudents * 100)|round|int }}%)</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="container mt-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+{% endblock %}

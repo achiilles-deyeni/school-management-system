@@ -1,0 +1,44 @@
+{# templates/teachers/list.html #}
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Teachers</h2>
+<form method="get" class="mb-4">
+  <input type="text" name="subject" value="{{ subject }}" placeholder="Filter by subject" class="border rounded p-2">
+  <select name="sort" class="border rounded p-2">
+    <option value="last_name" {% if sort == 'last_name' %}selected{% endif %}>Sort by Last Name</option>
+    <option value="first_name" {% if sort == 'first_name' %}selected{% endif %}>Sort by First Name</option>
+  </select>
+  <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Apply</button>
+</form>
+<a href="{{ url_for('teachers.create_teacher') }}" class="bg-green-500 text-white px-4 py-2 rounded mb-4 inline-block">Add New Teacher</a>
+<table class="w-full table-auto border">
+  <thead>
+    <tr class="bg-gray-100">
+      <th class="px-4 py-2">Name</th>
+      <th class="px-4 py-2">Subject</th>
+      <th class="px-4 py-2">Email</th>
+      <th class="px-4 py-2">Phone</th>
+      <th class="px-4 py-2">Students</th>
+      <th class="px-4 py-2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in teachers %}
+    <tr>
+      <td class="border px-4 py-2">{{ t.FirstName }} {{ t.LastName }}</td>
+      <td class="border px-4 py-2">{{ t.Subjects_taught }}</td>
+      <td class="border px-4 py-2">{{ t.Email }}</td>
+      <td class="border px-4 py-2">{{ t.PhoneNumber }}</td>
+      <td class="border px-4 py-2">{{ t.StudentCount }}</td>
+      <td class="border px-4 py-2">
+        <a href="{{ url_for('teachers.view_teacher', teacher_id=t.TeacherID) }}" class="text-blue-600">View</a> |
+        <a href="{{ url_for('teachers.edit_teacher', teacher_id=t.TeacherID) }}" class="text-yellow-600">Edit</a> |
+        <form action="{{ url_for('teachers.delete_teacher', teacher_id=t.TeacherID) }}" method="post" style="display:inline;">
+          <button type="submit" onclick="return confirm('Delete this teacher?');" class="text-red-600">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,36 @@
+# templates/results/list.html
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">All Results</h2>
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Student ID</th>
+        <th>Subject</th>
+        <th>Score</th>
+        <th>Grade</th>
+        <th>Term</th>
+        <th>Year</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+      <tr>
+        <td>{{ result.StudentID }}</td>
+        <td>{{ result.Subject }}</td>
+        <td>{{ result.Score }}</td>
+        <td>{{ result.Grade }}</td>
+        <td>{{ result.Term }}</td>
+        <td>{{ result.AcademicYear }}</td>
+        <td>
+          <a href="{{ url_for('results.view_result', result_id=result.ResultID) }}" class="btn btn-sm btn-primary">View</a>
+          <a href="{{ url_for('results.edit_result', result_id=result.ResultID) }}" class="btn btn-sm btn-warning">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

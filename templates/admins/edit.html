@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Edit Admin</h3>
+  <form method="POST">
+    <div class="mb-3">
+      <label>First Name</label>
+      <input name="FirstName" class="form-control" value="{{ admin.FirstName }}" required>
+    </div>
+    <div class="mb-3">
+      <label>Last Name</label>
+      <input name="LastName" class="form-control" value="{{ admin.LastName }}" required>
+    </div>
+    <div class="mb-3">
+      <label>Email</label>
+      <input name="Email" type="email" class="form-control" value="{{ admin.Email }}" required>
+    </div>
+    <div class="mb-3">
+      <label>Password</label>
+      <input name="Password" type="password" class="form-control" value="{{ admin.Password }}" required>
+    </div>
+    <button class="btn btn-primary">Update</button>
+    <a href="{{ url_for('admins.view_admin', admin_id=admin.AdminID) }}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}
