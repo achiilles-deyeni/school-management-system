@@ -37,3 +37,16 @@ def student_required(f):
             return redirect(url_for('main.dashboard'))
         return f(*args, **kwargs)
     return decorated_function
+
+from functools import wraps
+from flask import redirect, url_for, flash, session
+
+def admin_or_teacher_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        role = session.get('role')
+        if role not in ('admin', 'teacher'):
+            flash("You do not have permission to access this page.", "danger")
+            return redirect(url_for('auth.login'))
+        return f(*args, **kwargs)
+    return decorated_function

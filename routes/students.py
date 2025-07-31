@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from werkzeug.utils import secure_filename
 from models.student import Student
 from models.teacher import Teacher
-from utils.decorators import login_required, admin_required, student_required, teacher_required
+from utils.decorators import login_required, admin_required, student_required, teacher_required, admin_or_teacher_required
 from utils.validators import validate_student_data, validate_email, validate_phone
 from utils.file_handler import allowed_file, save_student_photo
 import os
@@ -25,6 +25,7 @@ MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 @students_bp.route('/')
 @login_required
+@admin_or_teacher_required
 def list_students():
     """List all students with search, filter, and pagination"""
     try:
