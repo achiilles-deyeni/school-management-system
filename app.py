@@ -2,6 +2,7 @@
 from flask import Flask
 from config import Config
 from database import init_db
+
 import os
 
 
@@ -25,7 +26,7 @@ def create_app():
     from routes.logs import logs_bp
 
     app.register_blueprint(auth_bp)
-    app.register_blueprint(admin_bp, url_prefix='/admin')
+    app.register_blueprint(admin_bp, url_prefix='/admins')
     app.register_blueprint(students_bp, url_prefix='/students')
     app.register_blueprint(teachers_bp, url_prefix='/teachers')
     app.register_blueprint(events_bp, url_prefix='/events')

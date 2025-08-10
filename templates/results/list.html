@@ -1,6 +1,4 @@
-# templates/results/list.html
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="container mt-4">
   <h2 class="mb-4">All Results</h2>
   <table class="table table-striped">
@@ -25,8 +23,16 @@
         <td>{{ result.Term }}</td>
         <td>{{ result.AcademicYear }}</td>
         <td>
-          <a href="{{ url_for('results.view_result', result_id=result.ResultID) }}" class="btn btn-sm btn-primary">View</a>
-          <a href="{{ url_for('results.edit_result', result_id=result.ResultID) }}" class="btn btn-sm btn-warning">Edit</a>
+          <a
+            href="{{ url_for('results.view_result', result_id=result.ResultID) }}"
+            class="btn btn-sm btn-primary"
+            >View</a
+          >
+          <a
+            href="{{ url_for('results.edit_result', result_id=result.ResultID) }}"
+            class="btn btn-sm btn-warning"
+            >Edit</a
+          >
         </td>
       </tr>
       {% endfor %}

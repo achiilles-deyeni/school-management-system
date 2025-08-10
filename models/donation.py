@@ -32,7 +32,7 @@ class Donation:
             SET DonorName = ?, Amount = ?, DonationDate = ?, Purpose = ?
             WHERE DonationID = ?
         """
-        params = (data['DonorName'], data['Amount'], data['DonationDate'], data['Notes'], donation_id)
+        params = (data['DonorName'], data['Amount'], data['DonationDate'], data['Purpose'], donation_id)
         return execute_db(query, params)
 
     @staticmethod

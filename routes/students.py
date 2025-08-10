@@ -25,9 +25,13 @@ MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 @students_bp.route('/')
 @login_required
-@admin_or_teacher_required
+# Allow all authenticated users (admin, teacher, and student) to view students list
 def list_students():
     """List all students with search, filter, and pagination"""
+    # Debug: Check current user role
+    current_role = session.get('user_role', 'No role')
+    logger.info(f"Students list accessed by user with role: {current_role}")
+    
     try:
         # Get query parameters
         page = request.args.get('page', 1, type=int)
@@ -71,7 +75,17 @@ def list_students():
     except Exception as e:
         logger.error(f"Error listing students: {str(e)}")
         flash('Error retrieving student list', 'danger')
-        return render_template('students/list.html', students=[], pagination=None, classes=[])
+        return render_template('students/list.html', 
+                               students=[], 
+                               pagination=None, 
+                               classes=[],
+                               current_filters={
+                                   'search': '',
+                                   'class': '',
+                                   'gender': '',
+                                   'sort': 'last_name',
+                                   'order': 'asc'
+                               })
 
 
 @students_bp.route('/<int:student_id>')

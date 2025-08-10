@@ -6,7 +6,7 @@
 <div class="container text-center mt-5">
     <h1 class="display-5">
         Welcome,
-        {{ session['user_email'] }}
+        {{ session['user_name'] }}
         <small class="text-muted">({{ session['user_role']|capitalize }})</small>
     </h1>
     <p class="lead">Manage students, teachers, classes, and reports efficiently.</p>
@@ -42,7 +42,7 @@
                     <i class="fas fa-user-graduate fa-3x text-primary"></i>
                     <h5 class="card-title mt-2">Students</h5>
                     <p class="card-text">View and manage student records.</p>
-                    <a href="{{ url_for('students.profile') }}" class="btn btn-primary">Go to Students</a>
+                    <a href="{{ url_for('students.list_students') }}" class="btn btn-primary">Go to Students</a>
                 </div>
             </div>
         </div>

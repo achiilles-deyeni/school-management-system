@@ -1,4 +1,3 @@
-# models/student.py - Enhanced Student Model
 from database import query_db, execute_db
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, date
@@ -25,7 +24,7 @@ class Student:
             default_password = generate_password_hash(f"{data['last_name'].lower()}{student_id[-4:]}")
 
             query = '''
-                INSERT INTO Students_114 (
+                INSERT INTO students (
                     StudentID, FirstName, LastName, Gender, DateOfBirth,
                     GuardianName, GuardianPhone, GuardianEmail, Address,
                     Class, AdmissionDate, TeacherID, MedicalInfo,
@@ -75,9 +74,9 @@ class Student:
                     s.DateOfBirth, s.Class, s.GuardianName, s.GuardianPhone,
                     s.GuardianEmail, s.Address, s.AdmissionDate, s.Status,
                     s.Photo, t.FirstName + ' ' + t.LastName AS TeacherName
-                FROM Students_114 s
+                FROM students s
                 LEFT JOIN Teachers_114 t ON s.TeacherID = t.ID
-                WHERE s.Status = 'active'
+                WHERE s.IsActive = 1
                 ORDER BY s.LastName, s.FirstName
             '''
 
@@ -89,12 +88,11 @@ class Student:
             raise Exception("Failed to retrieve students")
 
     @staticmethod
-    def get_paginated(page=1, per_page=20, search='', class_filter='',
-                      gender_filter='', sort_by='last_name', sort_order='asc'):
-        """Get paginated students with filtering and sorting"""
+    def get_paginated(page=1, per_page=20, search='', class_filter='', gender_filter='', sort_by='last_name', sort_order='asc'):
+        """Get paginated students with filtering and sorting (single, correct version)"""
         try:
             # Build WHERE clause
-            where_conditions = ["s.Status = 'active'"]
+            where_conditions = ["s.IsActive = 1"]
             params = []
 
             if search:
@@ -134,11 +132,10 @@ class Student:
 
             order_clause = f"ORDER BY {sort_column_map[sort_by]} {sort_order.upper()}"
 
-            # Get total count
+            # Get total count - simplified query without join first
             count_query = f'''
                 SELECT COUNT(*) 
-                FROM Students_114 s
-                LEFT JOIN Teachers_114 t ON s.TeacherID = t.ID
+                FROM students s
                 WHERE {where_clause}
             '''
 
@@ -148,22 +145,40 @@ class Student:
             offset = (page - 1) * per_page
             total_pages = (total_count + per_page - 1) // per_page
 
-            # Get paginated results
-            query = f'''
-                SELECT 
-                    s.ID, s.StudentID, s.FirstName, s.LastName, s.Gender,
-                    s.DateOfBirth, s.Class, s.GuardianName, s.GuardianPhone,
-                    s.GuardianEmail, s.Address, s.AdmissionDate, s.Status,
-                    s.Photo, t.FirstName + ' ' + t.LastName AS TeacherName
-                FROM Students_114 s
-                LEFT JOIN Teachers_114 t ON s.TeacherID = t.ID
-                WHERE {where_clause}
-                {order_clause}
-                OFFSET ? ROWS FETCH NEXT ? ROWS ONLY
-            '''
+            # Try main query with teacher join
+            try:
+                main_query = f'''
+                    SELECT 
+                        s.ID, s.StudentID, s.FirstName, s.LastName, s.Gender,
+                        s.DateOfBirth, s.Class, s.GuardianName, s.GuardianPhone,
+                        s.GuardianEmail, s.Address, s.AdmissionDate, s.Status,
+                        s.Photo, 
+                        ISNULL(t.FirstName + ' ' + t.LastName, 'No Teacher Assigned') AS TeacherName
+                    FROM students s
+                    LEFT JOIN Teachers_114 t ON s.TeacherID = t.TeacherID
+                    WHERE {where_clause}
+                    {order_clause}
+                    OFFSET ? ROWS FETCH NEXT ? ROWS ONLY
+                '''
 
-            params.extend([offset, per_page])
-            results = query_db(query, params)
+                params_with_pagination = params + [offset, per_page]
+                results = query_db(main_query, params_with_pagination)
+
+            except Exception as join_error:
+                logger.warning(f"Teacher join failed, using fallback query: {str(join_error)}")
+                # Fallback query without teacher join
+                fallback_query = f'''
+                    SELECT 
+                        s.ID, s.StudentID, s.FirstName, s.LastName, s.Gender,
+                        s.DateOfBirth, s.Class, s.GuardianName, s.GuardianPhone,
+                        s.GuardianEmail, s.Address, s.AdmissionDate, s.Status,
+                        s.Photo, 'Teacher Info Unavailable' AS TeacherName
+                    FROM students s
+                    WHERE {where_clause}
+                    {order_clause}
+                    OFFSET ? ROWS FETCH NEXT ? ROWS ONLY
+                '''
+                results = query_db(fallback_query, params + [offset, per_page])
 
             students = [Student._row_to_dict(row) for row in results]
 
@@ -188,20 +203,37 @@ class Student:
     def get_by_id(student_id):
         """Get student by internal ID"""
         try:
-            query = '''
-                SELECT 
-                    s.ID, s.StudentID, s.FirstName, s.LastName, s.Gender,
-                    s.DateOfBirth, s.Class, s.GuardianName, s.GuardianPhone,
-                    s.GuardianEmail, s.Address, s.AdmissionDate, s.TeacherID,
-                    s.MedicalInfo, s.EmergencyContact, s.EmergencyPhone,
-                    s.Photo, s.Status, s.CreatedAt, s.UpdatedAt,
-                    t.FirstName + ' ' + t.LastName AS TeacherName
-                FROM Students_114 s
-                LEFT JOIN Teachers_114 t ON s.TeacherID = t.ID
-                WHERE s.ID = ?
-            '''
+            # Try with teacher join first
+            try:
+                query = '''
+                    SELECT 
+                        s.ID, s.StudentID, s.FirstName, s.LastName, s.Gender,
+                        s.DateOfBirth, s.Class, s.GuardianName, s.GuardianPhone,
+                        s.GuardianEmail, s.Address, s.AdmissionDate, s.TeacherID,
+                        s.MedicalInfo, s.EmergencyContact, s.EmergencyPhone,
+                        s.Photo, s.Status, s.CreatedAt, s.UpdatedAt,
+                        ISNULL(t.FirstName + ' ' + t.LastName, 'No Teacher Assigned') AS TeacherName
+                    FROM students s
+                    LEFT JOIN Teachers_114 t ON s.TeacherID = t.TeacherID
+                    WHERE s.ID = ?
+                '''
+                result = query_db(query, (student_id,))
+            except Exception as join_error:
+                logger.warning(f"Teacher join failed in get_by_id, using fallback: {str(join_error)}")
+                # Fallback query without teacher join
+                query = '''
+                    SELECT 
+                        s.ID, s.StudentID, s.FirstName, s.LastName, s.Gender,
+                        s.DateOfBirth, s.Class, s.GuardianName, s.GuardianPhone,
+                        s.GuardianEmail, s.Address, s.AdmissionDate, s.TeacherID,
+                        s.MedicalInfo, s.EmergencyContact, s.EmergencyPhone,
+                        s.Photo, s.Status, s.CreatedAt, s.UpdatedAt,
+                        'Teacher Info Unavailable' AS TeacherName
+                    FROM students s
+                    WHERE s.ID = ?
+                '''
+                result = query_db(query, (student_id,))
 
-            result = query_db(query, (student_id,))
             return Student._row_to_dict(result[0]) if result else None
 
         except Exception as e:
@@ -212,20 +244,37 @@ class Student:
     def get_by_student_id(student_id):
         """Get student by StudentID (login ID)"""
         try:
-            query = '''
-                SELECT 
-                    s.ID, s.StudentID, s.FirstName, s.LastName, s.Gender,
-                    s.DateOfBirth, s.Class, s.GuardianName, s.GuardianPhone,
-                    s.GuardianEmail, s.Address, s.AdmissionDate, s.TeacherID,
-                    s.MedicalInfo, s.EmergencyContact, s.EmergencyPhone,
-                    s.Photo, s.Status, s.CreatedAt, s.UpdatedAt,
-                    t.FirstName + ' ' + t.LastName AS TeacherName
-                FROM Students_114 s
-                LEFT JOIN Teachers_114 t ON s.TeacherID = t.ID
-                WHERE s.StudentID = ? AND s.Status = 'active'
-            '''
+            # Try with teacher join first
+            try:
+                query = '''
+                    SELECT 
+                        s.ID, s.StudentID, s.FirstName, s.LastName, s.Gender,
+                        s.DateOfBirth, s.Class, s.GuardianName, s.GuardianPhone,
+                        s.GuardianEmail, s.Address, s.AdmissionDate, s.TeacherID,
+                        s.MedicalInfo, s.EmergencyContact, s.EmergencyPhone,
+                        s.Photo, s.Status, s.CreatedAt, s.UpdatedAt,
+                        ISNULL(t.FirstName + ' ' + t.LastName, 'No Teacher Assigned') AS TeacherName
+                    FROM students s
+                    LEFT JOIN Teachers_114 t ON s.TeacherID = t.TeacherID
+                    WHERE s.StudentID = ? AND s.Status = 'active'
+                '''
+                result = query_db(query, (student_id,))
+            except Exception as join_error:
+                logger.warning(f"Teacher join failed in get_by_student_id, using fallback: {str(join_error)}")
+                # Fallback query without teacher join
+                query = '''
+                    SELECT 
+                        s.ID, s.StudentID, s.FirstName, s.LastName, s.Gender,
+                        s.DateOfBirth, s.Class, s.GuardianName, s.GuardianPhone,
+                        s.GuardianEmail, s.Address, s.AdmissionDate, s.TeacherID,
+                        s.MedicalInfo, s.EmergencyContact, s.EmergencyPhone,
+                        s.Photo, s.Status, s.CreatedAt, s.UpdatedAt,
+                        'Teacher Info Unavailable' AS TeacherName
+                    FROM students s
+                    WHERE s.StudentID = ? AND s.Status = 'active'
+                '''
+                result = query_db(query, (student_id,))
 
-            result = query_db(query, (student_id,))
             return Student._row_to_dict(result[0]) if result else None
 
         except Exception as e:
@@ -236,7 +285,6 @@ class Student:
     def update(student_id, data):
         """Update student information"""
         try:
-            # Build dynamic update query
             update_fields = []
             params = []
 
@@ -274,7 +322,7 @@ class Student:
             params.append(student_id)
 
             query = f'''
-                UPDATE Students_114 
+                UPDATE students 
                 SET {', '.join(update_fields)}
                 WHERE ID = ?
             '''
@@ -292,7 +340,7 @@ class Student:
         """Soft delete student (mark as inactive)"""
         try:
             query = '''
-                UPDATE Students_114 
+                UPDATE students 
                 SET Status = 'inactive', UpdatedAt = ?
                 WHERE ID = ?
             '''
@@ -311,18 +359,21 @@ class Student:
         try:
             query = '''
                 SELECT ID, StudentID, FirstName, LastName, Password, Status
-                FROM Students_114 
+                FROM students 
                 WHERE StudentID = ? AND Status = 'active'
             '''
 
             result = query_db(query, (student_id,))
-            if result and check_password_hash(result[0][4], password):
-                return {
-                    'id': result[0][0],
-                    'student_id': result[0][1],
-                    'first_name': result[0][2],
-                    'last_name': result[0][3]
-                }
+            if result:
+                student = result[0]
+                if check_password_hash(student['Password'], password):
+                    return {
+                        'ID': student['ID'],
+                        'StudentID': student['StudentID'],
+                        'FirstName': student['FirstName'],
+                        'LastName': student['LastName'],
+                        'Email': student_id  # Using student_id as email for consistency
+                    }
             return None
 
         except Exception as e:
@@ -334,7 +385,7 @@ class Student:
         """Change student password"""
         try:
             # Verify current password
-            query = "SELECT Password FROM Students_114 WHERE StudentID = ?"
+            query = "SELECT Password FROM students WHERE StudentID = ?"
             result = query_db(query, (student_id,))
 
             if not result or not check_password_hash(result[0][0], current_password):
@@ -343,7 +394,7 @@ class Student:
             # Update password
             new_hash = generate_password_hash(new_password)
             update_query = '''
-                UPDATE Students_114 
+                UPDATE students 
                 SET Password = ?, UpdatedAt = ?
                 WHERE StudentID = ?
             '''
@@ -362,7 +413,7 @@ class Student:
         try:
             query = '''
                 SELECT DISTINCT Class 
-                FROM Students_114 
+                FROM students 
                 WHERE Status = 'active' AND Class IS NOT NULL
                 ORDER BY Class
             '''
@@ -381,17 +432,29 @@ class Student:
             query = '''
                 SELECT 
                     ID, StudentID, FirstName, LastName, Class, Photo
-                FROM Students_114
+                FROM students
                 WHERE Status = 'active' AND (
                     FirstName LIKE ? OR LastName LIKE ? OR 
                     StudentID LIKE ? OR Class LIKE ?
                 )
                 ORDER BY LastName, FirstName
-                LIMIT ?
             '''
 
+            # Add TOP clause for SQL Server instead of LIMIT
+            if limit:
+                query = f'''
+                    SELECT TOP {limit}
+                        ID, StudentID, FirstName, LastName, Class, Photo
+                    FROM students
+                    WHERE Status = 'active' AND (
+                        FirstName LIKE ? OR LastName LIKE ? OR 
+                        StudentID LIKE ? OR Class LIKE ?
+                    )
+                    ORDER BY LastName, FirstName
+                '''
+
             search_param = f"%{query_text}%"
-            results = query_db(query, (search_param, search_param, search_param, search_param, limit))
+            results = query_db(query, (search_param, search_param, search_param, search_param))
 
             return [{
                 'id': row[0],
@@ -415,7 +478,7 @@ class Student:
                     r.Term, r.Year, r.Subject, r.Score, r.Grade,
                     r.Position, r.Remarks, r.CreatedAt
                 FROM Results_114 r
-                WHERE r.StudentID = (SELECT StudentID FROM Students_114 WHERE ID = ?)
+                WHERE r.StudentID = (SELECT StudentID FROM students WHERE ID = ?)
                 ORDER BY r.Year DESC, r.Term DESC, r.Subject
             '''
 
@@ -446,7 +509,7 @@ class Student:
                     SUM(CASE WHEN Status = 'absent' THEN 1 ELSE 0 END) as absent_days,
                     SUM(CASE WHEN Status = 'late' THEN 1 ELSE 0 END) as late_days
                 FROM Attendance_114
-                WHERE StudentID = (SELECT StudentID FROM Students_114 WHERE ID = ?)
+                WHERE StudentID = (SELECT StudentID FROM students WHERE ID = ?)
                 AND YEAR(Date) = YEAR(GETDATE())
             '''
 
@@ -515,14 +578,13 @@ class Student:
         """Get upcoming events for student"""
         try:
             query = '''
-                SELECT 
+                SELECT TOP 5
                     e.Title, e.Description, e.Date, e.Location, e.Type
-                FROM Events_114 e
+                FROM Events e
                 WHERE e.Date >= GETDATE()
                 AND (e.TargetAudience = 'all' OR e.TargetAudience = 'students'
-                     OR e.TargetClass = (SELECT Class FROM Students_114 WHERE ID = ?))
+                     OR e.TargetClass = (SELECT Class FROM students WHERE ID = ?))
                 ORDER BY e.Date
-                LIMIT 5
             '''
 
             results = query_db(query, (student_id,))
@@ -543,7 +605,7 @@ class Student:
         """Update student status"""
         try:
             query = '''
-                UPDATE Students_114 
+                UPDATE students 
                 SET Status = ?, UpdatedAt = ?
                 WHERE ID = ?
             '''
@@ -579,28 +641,27 @@ class Student:
 
             query = f'''
                 SELECT 
-                    StudentID, FirstName, LastName, Gender, DateOfBirth,
-                    Class, GuardianName, GuardianPhone, GuardianEmail,
-                    Address, AdmissionDate, Status
-                FROM Students_114
+                    ID, StudentID, FirstName, LastName, Gender, DateOfBirth, Class,
+                    GuardianName, GuardianPhone, GuardianEmail, Address, AdmissionDate, Status
+                FROM students
                 WHERE {where_clause}
                 ORDER BY LastName, FirstName
             '''
 
             results = query_db(query, params)
             return [{
-                'student_id': row[0],
-                'first_name': row[1],
-                'last_name': row[2],
-                'gender': row[3],
-                'date_of_birth': row[4],
-                'class_name': row[5],
-                'guardian_name': row[6],
-                'guardian_phone': row[7],
-                'guardian_email': row[8],
-                'address': row[9],
-                'admission_date': row[10],
-                'status': row[11]
+                'student_id': row[1],
+                'first_name': row[2],
+                'last_name': row[3],
+                'gender': row[4],
+                'date_of_birth': row[5],
+                'class_name': row[6],
+                'guardian_name': row[7],
+                'guardian_phone': row[8],
+                'guardian_email': row[9],
+                'address': row[10],
+                'admission_date': row[11],
+                'status': row[12]
             } for row in results]
 
         except Exception as e:
@@ -688,7 +749,7 @@ class Student:
 
             # Get count of students for this year
             query = '''
-                SELECT COUNT(*) FROM Students_114 
+                SELECT COUNT(*) FROM students 
                 WHERE StudentID LIKE ?
             '''
 
@@ -715,7 +776,7 @@ class Student:
     def _student_id_exists(student_id):
         """Check if student ID already exists"""
         try:
-            query = "SELECT COUNT(*) FROM Students_114 WHERE StudentID = ?"
+            query = "SELECT COUNT(*) FROM students WHERE StudentID = ?"
             result = query_db(query, (student_id,))
             return result[0][0] > 0
         except:

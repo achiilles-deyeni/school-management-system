@@ -7,7 +7,7 @@ from utils.decorators import login_required, admin_required, teacher_required
 from utils.validators import validate_teacher_data
 import logging
 
-teachers_bp = Blueprint('teachers', __name__, url_prefix='/teachers')
+teachers_bp = Blueprint('teachers', __name__)
 UPLOAD_FOLDER = 'static/photos/teachers'
 
 # Ensure upload folder exists
@@ -37,7 +37,8 @@ def list_teachers():
     except Exception as e:
         logging.exception("Error listing teachers")
         flash("Failed to retrieve teacher list.", "danger")
-        return redirect(url_for('main.dashboard'))
+        # Return empty teachers list instead of redirecting
+        return render_template('teachers/list.html', teachers=[], subject='', sort='last_name')
 
 @teachers_bp.route('/<int:teacher_id>')
 @login_required

@@ -59,13 +59,16 @@ def get_working_connection_string():
 
 # Database connection settings
 def get_db():
-    server = 'CHILOO\\SQLEXPRESS'
-    database = 'Bright_Star'
-
-#     for windows
-    conn_str = f'DRIVER={{SQL Server}}; SERVER={server}; DATABASE={database}; Trusted_Connection=yes'
-    conn = pyodbc.connect(conn_str)
-    return conn
+    """Get database connection using Config settings"""
+    conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}}; SERVER={Config.DB_SERVER}; DATABASE={Config.DB_NAME}; Trusted_Connection=yes'
+    try:
+        conn = pyodbc.connect(conn_str)
+        return conn
+    except Exception:
+        # Fallback to older driver if ODBC Driver 17 is not available
+        fallback_conn_str = f'DRIVER={{SQL Server}}; SERVER={Config.DB_SERVER}; DATABASE={Config.DB_NAME}; Trusted_Connection=yes'
+        conn = pyodbc.connect(fallback_conn_str)
+        return conn
 
 
 @contextmanager

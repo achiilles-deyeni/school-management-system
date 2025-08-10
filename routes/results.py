@@ -4,7 +4,7 @@ from models.result import Result
 from models.student import Student
 from utils.decorators import login_required, teacher_required, admin_required
 
-results_bp = Blueprint('results', __name__, url_prefix='/results')
+results_bp = Blueprint('results', __name__)
 
 @results_bp.route('/')
 @login_required

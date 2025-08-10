@@ -1,44 +1,60 @@
-{# templates/teachers/list.html #}
-{% extends 'base.html' %}
-{% block content %}
-<h2 class="text-2xl font-semibold mb-4">Teachers</h2>
-<form method="get" class="mb-4">
-  <input type="text" name="subject" value="{{ subject }}" placeholder="Filter by subject" class="border rounded p-2">
-  <select name="sort" class="border rounded p-2">
-    <option value="last_name" {% if sort == 'last_name' %}selected{% endif %}>Sort by Last Name</option>
-    <option value="first_name" {% if sort == 'first_name' %}selected{% endif %}>Sort by First Name</option>
-  </select>
-  <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Apply</button>
-</form>
-<a href="{{ url_for('teachers.create_teacher') }}" class="bg-green-500 text-white px-4 py-2 rounded mb-4 inline-block">Add New Teacher</a>
-<table class="w-full table-auto border">
-  <thead>
-    <tr class="bg-gray-100">
-      <th class="px-4 py-2">Name</th>
-      <th class="px-4 py-2">Subject</th>
-      <th class="px-4 py-2">Email</th>
-      <th class="px-4 py-2">Phone</th>
-      <th class="px-4 py-2">Students</th>
-      <th class="px-4 py-2">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for t in teachers %}
-    <tr>
-      <td class="border px-4 py-2">{{ t.FirstName }} {{ t.LastName }}</td>
-      <td class="border px-4 py-2">{{ t.Subjects_taught }}</td>
-      <td class="border px-4 py-2">{{ t.Email }}</td>
-      <td class="border px-4 py-2">{{ t.PhoneNumber }}</td>
-      <td class="border px-4 py-2">{{ t.StudentCount }}</td>
-      <td class="border px-4 py-2">
-        <a href="{{ url_for('teachers.view_teacher', teacher_id=t.TeacherID) }}" class="text-blue-600">View</a> |
-        <a href="{{ url_for('teachers.edit_teacher', teacher_id=t.TeacherID) }}" class="text-yellow-600">Edit</a> |
-        <form action="{{ url_for('teachers.delete_teacher', teacher_id=t.TeacherID) }}" method="post" style="display:inline;">
-          <button type="submit" onclick="return confirm('Delete this teacher?');" class="text-red-600">Delete</button>
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+  <h2>Teacher List</h2>
+  <a
+    href="{{ url_for('teachers.create_teacher') }}"
+    class="btn btn-success mb-3"
+    >Add Teacher</a
+  >
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Students</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in teachers %}
+      <tr>
+        <td>{{ t.TeacherID }}</td>
+        <td>{{ t.FirstName }} {{ t.LastName }}</td>
+        <td>{{ t.Subjects_taught }}</td>
+        <td>{{ t.Email }}</td>
+        <td>{{ t.PhoneNumber }}</td>
+        <td>{{ t.StudentCount }}</td>
+        <td>
+          <a
+            href="{{ url_for('teachers.view_teacher', teacher_id=t.TeacherID) }}"
+            class="btn btn-info btn-sm"
+            >View</a
+          >
+          <a
+            href="{{ url_for('teachers.edit_teacher', teacher_id=t.TeacherID) }}"
+            class="btn btn-warning btn-sm"
+            >Edit</a
+          >
+          <form
+            action="{{ url_for('teachers.delete_teacher', teacher_id=t.TeacherID) }}"
+            method="post"
+            class="d-inline"
+            onsubmit="return confirm('Delete this teacher?')"
+          >
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" class="text-center">No teachers found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.donation import Donation
 from utils.decorators import login_required, admin_required
 
-donations_bp = Blueprint('donations', __name__, url_prefix='/donations')
+donations_bp = Blueprint('donations', __name__)
 
 @donations_bp.route('/')
 @login_required
@@ -28,7 +28,7 @@ def create_donation():
             'DonorName': request.form['DonorName'],
             'Amount': request.form['Amount'],
             'DonationDate': request.form['DonationDate'],
-            'Notes': request.form['Notes']
+            'Purpose': request.form['Notes']
         }
         Donation.create(data)
         flash('Donation recorded successfully', 'success')
@@ -47,7 +47,7 @@ def edit_donation(donation_id):
             'DonorName': request.form['DonorName'],
             'Amount': request.form['Amount'],
             'DonationDate': request.form['DonationDate'],
-            'Notes': request.form['Notes']
+            'Purpose': request.form['Notes']
         }
         Donation.update(donation_id, data)
         flash('Donation updated successfully', 'success')

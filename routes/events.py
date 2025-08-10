@@ -5,7 +5,7 @@ from utils.decorators import login_required, admin_required
 from utils.validators import validate_event_data
 import logging
 
-events_bp = Blueprint('events', __name__, url_prefix='/events')
+events_bp = Blueprint('events', __name__)
 
 @events_bp.route('/')
 @login_required
@@ -15,8 +15,11 @@ def list_events():
         return render_template('events/list.html', events=events)
     except Exception as e:
         logging.exception("Error listing events")
-        flash("Could not load events.", "danger")
-        return redirect(url_for('main.dashboard'))
+        # More specific error message for debugging
+        error_msg = f"Could not load events. Error: {str(e)}"
+        flash(error_msg, "danger")
+        # Return empty events list instead of redirecting
+        return render_template('events/list.html', events=[])
 
 @events_bp.route('/<int:event_id>')
 @login_required

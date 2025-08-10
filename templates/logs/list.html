@@ -1,0 +1,156 @@
+{% extends "base.html" %} {% block title %}Admin Logs{% endblock %} {% block
+content %}
+<div class="container mt-4">
+  <h1 class="mb-4">System Logs</h1>
+
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %} {% for category, message in messages %}
+  <div
+    class="alert alert-{{ category }} alert-dismissible fade show"
+    role="alert"
+  >
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  {% endfor %} {% endif %} {% endwith %}
+
+  <div class="card mb-4">
+    <div
+      class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
+    >
+      <span>Audit Logs</span>
+      <div>
+        <button class="btn btn-sm btn-light" id="refreshBtn">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      {% if logs %}
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Table</th>
+              <th>Operation</th>
+              <th>Record ID</th>
+              <th>Field</th>
+              <th>Old Value</th>
+              <th>New Value</th>
+              <th>Changed By</th>
+              <th>Timestamp</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for log in logs %}
+            <tr>
+              <td>{{ log.log_id }}</td>
+              <td>{{ log.table_name }}</td>
+              <td>
+                <span
+                  class="badge {% if log.operation == 'INSERT' %}bg-success{% elif log.operation == 'UPDATE' %}bg-warning{% elif log.operation == 'DELETE' %}bg-danger{% else %}bg-info{% endif %}"
+                >
+                  {{ log.operation }}
+                </span>
+              </td>
+              <td>{{ log.record_id }}</td>
+              <td>{{ log.field_name }}</td>
+              <td>
+                <span class="text-danger">{{ log.old_value }}</span>
+              </td>
+              <td>
+                <span class="text-success">{{ log.new_value }}</span>
+              </td>
+              <td>{{ log.changed_by }}</td>
+              <td>{{ log.formatted_timestamp }}</td>
+              <td>
+                <button
+                  class="btn btn-sm btn-info viewDetailsBtn"
+                  data-log-id="{{ log.log_id }}"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="alert alert-info">No logs found.</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- Log Details Modal -->
+<div
+  class="modal fade"
+  id="logDetailsModal"
+  tabindex="-1"
+  aria-labelledby="logDetailsModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logDetailsModalLabel">Log Details</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" id="logDetailsContent">
+        <!-- Details will be loaded here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block scripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Refresh button functionality
+    document
+      .getElementById("refreshBtn")
+      .addEventListener("click", function () {
+        window.location.reload();
+      });
+
+    // View details button functionality
+    document.querySelectorAll(".viewDetailsBtn").forEach((button) => {
+      button.addEventListener("click", function () {
+        const logId = this.getAttribute("data-log-id");
+        // In a real implementation, you might want to fetch details via AJAX
+        // For now, we'll just show the log ID in the modal
+        document.getElementById("logDetailsContent").innerHTML = `
+                <div class="alert alert-info">
+                    Detailed information for Log ID: ${logId}
+                </div>
+                <p>This would typically show expanded information about this specific log entry.</p>
+            `;
+
+        // Show the modal
+        var modal = new bootstrap.Modal(
+          document.getElementById("logDetailsModal")
+        );
+        modal.show();
+      });
+    });
+  });
+</script>
+{% endblock %} {% endblock %}

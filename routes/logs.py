@@ -5,7 +5,7 @@ from utils.decorators import login_required, admin_required
 import logging
 from datetime import datetime, timedelta
 
-logs_bp = Blueprint('logs', __name__, url_prefix='/logs')
+logs_bp = Blueprint('logs', __name__)
 
 
 @logs_bp.route('/')
@@ -60,7 +60,21 @@ def list_logs():
     except Exception as e:
         logging.exception("Error listing logs")
         flash("Could not load logs.", "danger")
-        return redirect(url_for('main.dashboard'))
+        # Return empty logs list instead of redirecting
+        return render_template('logs/list.html',
+                               logs=[],
+                               actions=[],
+                               users=[],
+                               tables=[],
+                               current_filters={
+                                   'action': '',
+                                   'user': '',
+                                   'table': '',
+                                   'search': '',
+                                   'start_date': '',
+                                   'end_date': '',
+                                   'limit': 100
+                               })
 
 
 @logs_bp.route('/<int:log_id>')

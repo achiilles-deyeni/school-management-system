@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.expense import Expense
 from utils.decorators import login_required, admin_required
 
-expenses_bp = Blueprint('expenses', __name__, url_prefix='/expenses')
+expenses_bp = Blueprint('expenses', __name__)
 
 @expenses_bp.route('/')
 @login_required

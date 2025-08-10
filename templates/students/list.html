@@ -86,21 +86,9 @@
         </h1>
         <div class="btn-group">
             {% if current_user.role == 'admin' %}
-            <a href="{{ url_for('students.new_student') }}" class="btn btn-primary">
+            <a href="{{ url_for('students.new_student') }}" class="btn btn-success">
                 <i class="fas fa-plus mr-1"></i>Add Student
             </a>
-            <a href="{{ url_for('students.bulk_import') }}" class="btn btn-info">
-                <i class="fas fa-upload mr-1"></i>Bulk Import
-            </a>
-            <div class="dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i class="fas fa-download mr-1"></i>Export
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ url_for('students.export_students') }}">All Students</a>
-                    <a class="dropdown-item" href="{{ url_for('students.export_students', class=current_filters.class) }}">Current Filter</a>
-                </div>
-            </div>
             {% endif %}
         </div>
     </div>
@@ -215,7 +203,7 @@
                             <th>Guardian</th>
                             <th>Phone</th>
                             <th>Status</th>
-                            {% if current_user.role == 'admin' %}
+                            {% if session.get('user_role') == 'admin' %}
                             <th>Actions</th>
                             {% endif %}
                         </tr>

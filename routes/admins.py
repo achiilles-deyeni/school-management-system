@@ -4,16 +4,17 @@ from utils.decorators import login_required, admin_required
 from utils.validators import validate_admin_data
 import logging
 
-admin_bp = Blueprint('admins', __name__, url_prefix='/admins')
+admin_bp = Blueprint('admins', __name__)
 
 
 @admin_bp.route('/register', methods=['GET', 'POST'])
 def register_admin():
     if request.method == 'POST':
         data = request.form.to_dict()
-        is_valid, error = validate_admin_data(data)
-        if not is_valid:
-            flash(error, 'danger')
+        errors = validate_admin_data(data)
+        if errors:
+            for error in errors:
+                flash(error, 'danger')
             return redirect(request.url)
         try:
             existing_admin = Admin.get_by_email(data['Email'])
@@ -67,9 +68,10 @@ def view_admin(admin_id):
 def create_admin():
     if request.method == 'POST':
         data = request.form.to_dict()
-        is_valid, error = validate_admin_data(data)
-        if not is_valid:
-            flash(error, 'danger')
+        errors = validate_admin_data(data)
+        if errors:
+            for error in errors:
+                flash(error, 'danger')
             return redirect(request.url)
         try:
             existing = Admin.get_by_email(data['Email'])
@@ -95,9 +97,10 @@ def edit_admin(admin_id):
         return redirect(url_for('admins.list_admins'))
     if request.method == 'POST':
         data = request.form.to_dict()
-        is_valid, error = validate_admin_data(data)
-        if not is_valid:
-            flash(error, 'danger')
+        errors = validate_admin_data(data)
+        if errors:
+            for error in errors:
+                flash(error, 'danger')
             return redirect(request.url)
         try:
             Admin.update(admin_id, data)

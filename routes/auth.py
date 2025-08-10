@@ -20,156 +20,45 @@ def index():
 
     return redirect(url_for('auth.login'))
 
-# # Admin registration (only shown if no admins exist)
-# @auth_bp.route('/register', methods=['GET', 'POST'])
-# def register_admin():
-#     # if Admin.get_all():
-#     #     flash("Admin already exists. Please log in.", "info")
-#     #     return redirect(url_for('auth.login'))
-#
-#     if request.method == 'POST':
-#         first_name = request.form.get('FirstName', '').strip()
-#         last_name = request.form.get('LastName', '').strip()
-#         email = request.form.get('Email', '').strip().lower()
-#         password = request.form.get('password', '')
-#
-#         if not all([first_name, last_name, email, password]):
-#             flash('All fields are required.', 'danger')
-#             return render_template('register.html')
-#
-#         if not validate_email(email):
-#             flash('Invalid email format.', 'danger')
-#             return render_template('register.html')
-#
-#         try:
-#             if Admin.email_exists(email):
-#                 flash('Email already registered.', 'warning')
-#                 return render_template('register.html')
-#
-#             Admin.create({
-#                 'FirstName': first_name,
-#                 'LastName': last_name,
-#                 'Email': email,
-#                 'Password': password  # Will be hashed in model
-#             })
-#
-#             flash('Admin registered successfully. Please log in.', 'success')
-#             return redirect(url_for('auth.login'))
-#
-#         except Exception:
-#             logger.exception("Admin registration failed.")
-#             flash('Registration failed. Try again.', 'danger')
-#
-#     return render_template('register.html')
 
-
-# Replace your register_admin route with this debug version:
-
+# Admin registration (only shown if no admins exist)
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register_admin():
     if request.method == 'POST':
         try:
-            # Debug: Print all form data
-            print("=== REGISTRATION DEBUG ===")
-            print("Form data received:", dict(request.form))
-
             first_name = request.form.get('FirstName', '').strip()
             last_name = request.form.get('LastName', '').strip()
             email = request.form.get('Email', '').strip().lower()
             password = request.form.get('password', '')
 
-            print(f"Parsed data:")
-            print(f"  FirstName: '{first_name}'")
-            print(f"  LastName: '{last_name}'")
-            print(f"  Email: '{email}'")
-            print(f"  Password length: {len(password)}")
-            print(f"  All fields present: {all([first_name, last_name, email, password])}")
-
             # Check required fields
             if not all([first_name, last_name, email, password]):
-                missing = []
-                if not first_name: missing.append('FirstName')
-                if not last_name: missing.append('LastName')
-                if not email: missing.append('Email')
-                if not password: missing.append('Password')
-                print(f"Missing fields: {missing}")
                 flash('All fields are required.', 'danger')
                 return render_template('register.html')
 
             # Validate email
-            print("Validating email...")
             if not validate_email(email):
-                print("Email validation failed")
                 flash('Invalid email format.', 'danger')
-                return render_template('register.html')
-            print("Email validation passed")
-
-            # Test database connection first
-            print("Testing database connection...")
-            try:
-                from database import query_db
-                test_result = query_db("SELECT 1 AS test")
-                print(f"Database connection test: {test_result}")
-            except Exception as db_test_error:
-                print(f"Database connection failed: {db_test_error}")
-                flash(f'Database connection error: {str(db_test_error)}', 'danger')
-                return render_template('register.html')
-
-            # Check if Admin class and methods exist
-            print("Testing Admin class...")
-            try:
-                print(f"Admin class: {Admin}")
-                print(f"Admin.email_exists method: {hasattr(Admin, 'email_exists')}")
-                print(f"Admin.create method: {hasattr(Admin, 'create')}")
-            except Exception as class_error:
-                print(f"Admin class error: {class_error}")
-                flash(f'Admin class error: {str(class_error)}', 'danger')
                 return render_template('register.html')
 
             # Check if email already exists
-            print("Checking if email exists...")
-            try:
-                email_exists = Admin.email_exists(email)
-                print(f"Email exists result: {email_exists}")
-                if email_exists:
-                    flash('Email already registered.', 'warning')
-                    return render_template('register.html')
-            except Exception as email_check_error:
-                print(f"Email check failed: {email_check_error}")
-                flash(f'Email check error: {str(email_check_error)}', 'danger')
+            if Admin.email_exists(email):
+                flash('Email already registered.', 'warning')
                 return render_template('register.html')
 
             # Create admin
-            print("Creating admin...")
             admin_data = {
                 'FirstName': first_name,
                 'LastName': last_name,
                 'Email': email,
                 'Password': password
             }
-            print(f"Admin data to create: {admin_data}")
 
-            try:
-                Admin.create(admin_data)
-                print("Admin.create() completed successfully")
-            except Exception as create_error:
-                print(f"Admin.create() failed: {create_error}")
-                print(f"Error type: {type(create_error)}")
-                flash(f'Admin creation error: {str(create_error)}', 'danger')
-                return render_template('register.html')
-
-            print("Registration completed successfully!")
+            Admin.create(admin_data)
             flash('Admin registered successfully. Please log in.', 'success')
             return redirect(url_for('auth.login'))
 
         except Exception as e:
-            print(f"=== REGISTRATION ERROR ===")
-            print(f"Error: {str(e)}")
-            print(f"Error type: {type(e)}")
-            import traceback
-            print(f"Traceback:")
-            traceback.print_exc()
-
             logger.exception("Admin registration failed.")
             flash(f'Registration failed: {str(e)}', 'danger')
             return render_template('register.html')
